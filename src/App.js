@@ -1,5 +1,5 @@
 import "./App.css";
-import EuropMap from "./euroMap";
+import Source from "./Source";
 
 function App() {
   // const euroMapStuff = EuroMap;
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <h3>hello</h3>
 
-      <EuropMap />
+      <Source />
     </div>
   );
 }
