@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from "react";
 import * as d3 from "d3";
-import capitals from "./data/capitals.json";
-import countryList from "./data/countryList";
-import drawArrowStem from "./graphic/arrow";
+import drawArrowFull from "./graphic/arrow";
 import CountrySelect from "./controlPanel/countrySelect";
 import EuroMap from "./graphic/europeMap";
+import totalExportData from "./data/totalExportData.json";
+
+// import capitalData from "../data/capitals.json";
 
 const Source = () => {
-  //eveunually, received these props from control panel file
-  const [geoMap, setGeoMap] = useState({});
   const [origin, setOrigin] = useState("Ireland");
   const [dest, setDest] = useState("Greece");
 
   const svg = d3.select("#europeMap");
 
   useEffect(() => {
-    drawArrowStem(svg, origin, dest);
-    // drawArrowStem(origin, dest);
+    drawArrowFull(svg, origin, dest);
+
+    // refactor this into its own function in a "data preprocessing" file
+
+    const tradeData = totalExportData.filter(
+      (row) => row.Partner === origin.toLowerCase()
+    );
+    console.log(tradeData);
   }, [origin, dest]);
 
   function handleOriginChange(e) {
@@ -34,6 +39,8 @@ const Source = () => {
       <CountrySelect
         handleDestChange={handleDestChange}
         handleOriginChange={handleOriginChange}
+        origin={origin}
+        dest={dest}
       />
     </>
   );

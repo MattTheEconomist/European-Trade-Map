@@ -17,7 +17,6 @@ const countryList = [
   "Latvia",
   "Malta",
   "Netherlands",
-  "Pakistan",
   "Poland",
   "Portugal",
   "Romania",

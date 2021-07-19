@@ -1,4 +1,8 @@
-let mapWidth = 800;
-let mapHeight = 400;
+let mapWidth = 700;
+let mapHeight = 300;
 
-export { mapWidth, mapHeight };
+const arrowHeadLength = 10;
+
+export { mapWidth, mapHeight, arrowHeadLength };
+
+export default arrowHeadLength;
