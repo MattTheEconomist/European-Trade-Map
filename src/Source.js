@@ -3,25 +3,32 @@ import * as d3 from "d3";
 import drawArrowFull from "./graphic/arrow";
 import CountrySelect from "./controlPanel/countrySelect";
 import EuroMap from "./graphic/europeMap";
-import totalExportData from "./data/totalExportData.json";
+import clearArrows from "./graphic/clearArrows";
+import findTradePartners from "./mapDataPrep/findTradePartners";
+import calculateArrowWidth from "./graphic/arrowWidths";
 
 // import capitalData from "../data/capitals.json";
 
 const Source = () => {
-  const [origin, setOrigin] = useState("Ireland");
-  const [dest, setDest] = useState("Greece");
+  const [origin, setOrigin] = useState("");
+  const [dest, setDest] = useState("Italy");
 
   const svg = d3.select("#europeMap");
 
   useEffect(() => {
-    drawArrowFull(svg, origin, dest);
+    if (origin) {
+      clearArrows();
 
-    // refactor this into its own function in a "data preprocessing" file
+      const tradePartners = findTradePartners(origin);
 
-    const tradeData = totalExportData.filter(
-      (row) => row.Partner === origin.toLowerCase()
-    );
-    console.log(tradeData);
+      console.log(tradePartners);
+
+      Object.keys(tradePartners).forEach((country) => {
+        const lineWidth = calculateArrowWidth(tradePartners[country]);
+
+        drawArrowFull(svg, origin, country, lineWidth);
+      });
+    }
   }, [origin, dest]);
 
   function handleOriginChange(e) {

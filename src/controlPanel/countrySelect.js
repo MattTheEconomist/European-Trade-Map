@@ -1,7 +1,5 @@
 import countryList from "../data/countryList";
 
-import totalExportData from "../data/totalExportData.json";
-
 const CountrySelect = (props) => {
   const { handleDestChange, handleOriginChange, origin, dest } = props;
 
@@ -10,10 +8,6 @@ const CountrySelect = (props) => {
   const optionsHtml = countryListSorted.map((el, ind) => (
     <option key={ind}>{el}</option>
   ));
-
-  const tradeData = totalExportData.filter((row) => row.Partner === origin);
-
-  console.log(tradeData);
 
   const destSelect = document.getElementById("destSelect");
   const originSelect = document.getElementById("originSelect");

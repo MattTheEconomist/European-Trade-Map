@@ -4,19 +4,21 @@ import capitals from "../data/capitals.json";
 import countryList from "../data/countryList";
 import arrowHeadLength from "../mapDataPrep/graphDimensions";
 
-export function drawArrowFull(svg, origin, dest) {
+export function drawArrowFull(svg, origin, dest, lineWidth) {
   const lineCoords = createPathCoordinates(origin, dest);
+
+  // console.log(origin, dest);
 
   const arrowTopCoords = topArrowStartingCoordinates(origin, dest);
 
   const arrowBottomCoords = bottomArrowStartingCoordinates(origin, dest);
 
-  drawArrowStem(svg, lineCoords);
+  drawArrowStem(svg, lineCoords, lineWidth);
   drawArrowHeadTop(svg, lineCoords, arrowTopCoords);
   drawArrowHeadBottom(svg, lineCoords, arrowBottomCoords);
 }
 
-function drawArrowStem(svg, lineCoords) {
+function drawArrowStem(svg, lineCoords, lineWidth) {
   svg
     .append("line")
     .attr("id", "arrowStem")
@@ -26,7 +28,7 @@ function drawArrowStem(svg, lineCoords) {
     .attr("x2", lineCoords.x1)
     .attr("y2", lineCoords.y1)
     .style("stroke", "black")
-    .style("stroke-width", 3)
+    .style("stroke-width", lineWidth)
     .style("stroke-linecap", "butt")
     .transition()
     .duration(2000)
@@ -34,7 +36,7 @@ function drawArrowStem(svg, lineCoords) {
     .attr("y2", lineCoords.y2);
 }
 
-function drawArrowHeadTop(svg, lineCoords, arrowTopCoords) {
+function drawArrowHeadTop(svg, lineCoords, arrowTopCoords, lineWidth) {
   let arrowTopXDifference = arrowTopCoords.x1 - lineCoords.x2;
   let arrowTopYDifference = arrowTopCoords.y1 - lineCoords.y2;
 
@@ -53,7 +55,7 @@ function drawArrowHeadTop(svg, lineCoords, arrowTopCoords) {
     .attr("x2", lineCoords.x1)
     .attr("y2", lineCoords.y1)
     .style("stroke", "black")
-    .style("stroke-width", 2)
+    .style("stroke-width", lineWidth)
     .style("stroke-linecap", "square")
     .transition()
     .duration(2000)
@@ -63,15 +65,11 @@ function drawArrowHeadTop(svg, lineCoords, arrowTopCoords) {
     .attr("y2", lineCoords.y2);
 }
 
-function drawArrowHeadBottom(svg, lineCoords, arrowBottomCoords) {
+function drawArrowHeadBottom(svg, lineCoords, arrowBottomCoords, lineWidth) {
   let arrowBottomXDiffernce = arrowBottomCoords.x1 - lineCoords.x2;
   let arrowBottomYDiffernce = arrowBottomCoords.y1 - lineCoords.y2;
 
   let arrowAngle = degreeRotationBetweenCoordinates(lineCoords);
-
-  //   if (arrowAngle > 180) {
-  //     arrowTopYDifference *= -1;
-  //   }
 
   svg
     .append("line")
@@ -82,7 +80,7 @@ function drawArrowHeadBottom(svg, lineCoords, arrowBottomCoords) {
     .attr("x2", lineCoords.x1)
     .attr("y2", lineCoords.y1)
     .style("stroke", "black")
-    .style("stroke-width", 2)
+    .style("stroke-width", lineWidth)
     .style("stroke-linecap", "square")
     .transition()
     .duration(2000)
