@@ -27,21 +27,23 @@ export function findTradePartners(origin) {
     .sort((a, b) => (a > b ? -1 : 1))
     .filter(Boolean);
 
-  const topThreeCountries = {};
+  const fullTradeData_final = {};
 
-  for (let i = 0; i < 3; i++) {
+  const countryCount = Object.keys(fullTradeData).length - 2;
+
+  for (let i = 0; i < countryCount; i++) {
     const currentValue = tradeValues[i];
 
     let currentKey = getKeyByValue(fullTradeData_numbers, currentValue);
 
-    currentKey = currentKey.charAt(0).toUpperCase() + currentKey.slice(1);
+    if (currentKey) {
+      currentKey = currentKey.charAt(0).toUpperCase() + currentKey.slice(1);
 
-    topThreeCountries[currentKey] = currentValue;
+      fullTradeData_final[currentKey] = currentValue;
+    }
   }
 
-  //   console.log(topThreeCountries);
-
-  return topThreeCountries;
+  return fullTradeData_final;
 }
 
 function getKeyByValue(object, value) {

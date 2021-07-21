@@ -14,8 +14,8 @@ export function drawArrowFull(svg, origin, dest, lineWidth) {
   const arrowBottomCoords = bottomArrowStartingCoordinates(origin, dest);
 
   drawArrowStem(svg, lineCoords, lineWidth);
-  drawArrowHeadTop(svg, lineCoords, arrowTopCoords);
-  drawArrowHeadBottom(svg, lineCoords, arrowBottomCoords);
+  drawArrowHeadTop(svg, lineCoords, arrowTopCoords, lineWidth);
+  drawArrowHeadBottom(svg, lineCoords, arrowBottomCoords, lineWidth);
 }
 
 function drawArrowStem(svg, lineCoords, lineWidth) {
