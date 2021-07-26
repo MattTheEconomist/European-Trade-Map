@@ -6,16 +6,12 @@ import EuroMap from "./graphic/europeMap";
 import clearArrows from "./graphic/clearArrows";
 import findTradePartners from "./mapDataPrep/findTradePartners";
 import calculateArrowWidth from "./graphic/arrowWidths";
-import colorByCountry from "./graphic/colorByCountry";
-
-// import capitalData from "../data/capitals.json";
+import colorByCountry, { paintCountries } from "./graphic/colorByCountry";
+import { color } from "d3";
 
 const Source = () => {
   const [origin, setOrigin] = useState("");
   const [dest, setDest] = useState("Italy");
-
-  // const [tradePartners, setTradePartners] = useState();
-  const [colorObj, setColorObj] = useState({});
 
   const svg = d3.select("#europeMap");
 
@@ -25,16 +21,9 @@ const Source = () => {
 
       const tradePartners = findTradePartners(origin);
 
-      setColorObj(colorByCountry(tradePartners));
+      const colorObj = colorByCountry(tradePartners);
 
-      // console.log(colorObj);
-
-      // Object.keys(tradePartners).forEach((country) => {
-      //   const lineWidth = calculateArrowWidth(tradePartners[country]);
-
-      //   drawArrowFull(svg, origin, country, lineWidth);
-
-      // });
+      paintCountries(colorObj, origin);
     }
   }, [origin, dest]);
 
@@ -48,14 +37,15 @@ const Source = () => {
 
   return (
     <>
-      {/* <select id="OriginSelect" onSelect={handleOriginChange}> */}
-      <EuroMap colorObj={colorObj} origin={origin} />
+      <EuroMap origin={origin} />
       <CountrySelect
         handleDestChange={handleDestChange}
         handleOriginChange={handleOriginChange}
         origin={origin}
         dest={dest}
       />
+
+      <h3 id="deleteMe"> Origin Selected: {origin}</h3>
     </>
   );
 };

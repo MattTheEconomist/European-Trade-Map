@@ -3,7 +3,7 @@ import countryList from "../data/countryList";
 const CountrySelect = (props) => {
   const { handleDestChange, handleOriginChange, origin, dest } = props;
 
-  const countryListSorted = countryList.sort((a, b) => a - b);
+  const countryListSorted = countryList.sort((a, b) => (a > b ? 1 : -1));
 
   const optionsHtml = countryListSorted.map((el, ind) => (
     <option key={ind}>{el}</option>

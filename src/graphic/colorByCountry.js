@@ -1,5 +1,31 @@
 import * as d3 from "d3";
 
+export function paintCountries(colorObj, origin) {
+  restoreDefaultColor();
+
+  highlightSelectedCountry(origin);
+  transitionCountryColors(colorObj);
+}
+
+function highlightSelectedCountry(origin) {
+  d3.select(`#${origin}`).transition().duration(1500).attr("fill", "green");
+}
+
+function transitionCountryColors(colorObj) {
+  setTimeout(() => {
+    const countries = Object.keys(colorObj);
+    for (let i = 0; i < countries.length; i++) {
+      const currentCountryName = countries[i];
+      const selectedCountry = d3.select(`#${currentCountryName}`);
+
+      selectedCountry
+        .transition()
+        .duration(1500)
+        .attr("fill", colorObj[currentCountryName]);
+    }
+  }, 900);
+}
+
 export function colorByCountry(tradePartners) {
   const volumes = Object.values(tradePartners);
   const countries = Object.keys(tradePartners);
@@ -22,6 +48,10 @@ export function colorByCountry(tradePartners) {
   }
 
   return countryColorObj;
+}
+
+function restoreDefaultColor() {
+  d3.selectAll(".countryPath").transition().duration(1000).attr("fill", "grey");
 }
 
 export default colorByCountry;
