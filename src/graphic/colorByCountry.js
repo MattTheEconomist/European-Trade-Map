@@ -8,7 +8,16 @@ export function paintCountries(colorObj, origin) {
 }
 
 function highlightSelectedCountry(origin) {
-  d3.select(`#${origin}`).transition().duration(1500).attr("fill", "green");
+  let selectionCriteria = origin;
+
+  if (selectionCriteria === "United Kingdom") {
+    selectionCriteria = "unitedKingdom";
+  }
+
+  d3.select(`#${selectionCriteria}`)
+    .transition()
+    .duration(1500)
+    .attr("fill", "green");
 }
 
 function transitionCountryColors(colorObj) {

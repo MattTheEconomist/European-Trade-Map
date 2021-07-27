@@ -15,7 +15,6 @@ const countryList = [
   "Lithuania",
   "Luxembourg",
   "Latvia",
-  "Malta",
   "Netherlands",
   "Poland",
   "Portugal",
@@ -24,7 +23,6 @@ const countryList = [
   "Slovakia",
   "Sweden",
   "Austria",
-  "Cyprus",
   "Croatia",
   "Ireland",
 ];

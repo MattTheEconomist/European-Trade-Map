@@ -7,8 +7,10 @@ const geoJsonUrl =
 const europeProjection = d3
   .geoMercator()
   .center([13, 52])
-  .scale([mapWidth / 1.5])
-  .translate([mapWidth / 2, mapHeight / 2]);
+  // .center([300, 52])
+  // .scale([mapWidth / 1.5])
+  .scale([mapWidth / 1.8])
+  .translate([mapWidth / 1.3, mapHeight / 5]);
 
 const pathGenerator = d3.geoPath().projection(europeProjection);
 

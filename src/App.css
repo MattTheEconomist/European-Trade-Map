@@ -21,6 +21,36 @@
 #europeMap {
 }
 
+#mapAndGraphContainer {
+  display: flex;
+  height: 500px;
+}
+
+#graphContainer {
+  flex: 1;
+  background-color: green;
+  height: 500px;
+  width: 500px;
+  margin-left: 2rem;
+}
+
+#mapContainer {
+  flex: 2;
+  height: 500px;
+  width: 1000px;
+}
+
 #destSelect {
+  background-color: grey;
+}
+
+.tradeFlowBtn {
+}
+
+#activeBtn {
+  background-color: red;
+}
+
+#passiveBtn {
   background-color: grey;
 }

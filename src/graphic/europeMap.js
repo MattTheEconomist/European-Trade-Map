@@ -37,10 +37,18 @@ const EuroMap = (props) => {
       .enter()
       .append("path")
       .attr("d", pathGenerator)
-      .attr("stroke", "red")
+      .attr("stroke", "black")
       .attr("class", "countryPath")
       .attr("id", function (d) {
-        return d.properties.name;
+        const countryName = d.properties.name;
+        if (countryName === "Czech Republic") {
+          return "Czechia";
+        }
+        if (countryName === "United Kingdom") {
+          return "unitedKingdom";
+        } else {
+          return countryName;
+        }
       });
 
     const countries = d3.selectAll(".countryPath");
@@ -50,7 +58,15 @@ const EuroMap = (props) => {
     });
   }
 
-  return <svg id="europeMap" viewBox="0 0 800 450"></svg>;
+  return (
+    <div id="mapContainer">
+      <svg
+        id="europeMap"
+        viewBox="0 -100 800 450"
+        // viewBox="0 0 100 100"
+      ></svg>
+    </div>
+  );
 };
 
 export default EuroMap;

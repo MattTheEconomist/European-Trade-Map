@@ -1,8 +1,18 @@
 import totalExportData from "../data/totalExportData.json";
 
-export function findTradePartners(origin) {
-  let fullTradeData = totalExportData.filter(
-    (row) => row.Partner === origin.toLowerCase()
+export function findTradePartnersExport(origin) {
+  let fullTradeData;
+
+  let filterCriteria;
+
+  if (origin === "United Kingdom") {
+    filterCriteria = "unitedKingdom";
+  } else {
+    filterCriteria = origin.toLowerCase();
+  }
+
+  fullTradeData = totalExportData.filter(
+    (row) => row.Partner === filterCriteria
   );
 
   fullTradeData = fullTradeData[0];
@@ -17,37 +27,71 @@ export function findTradePartners(origin) {
   let fullTradeData_numbers = {};
 
   for (let [key, value] of Object.entries(fullTradeData)) {
-    value = value.replace(/,/g, "");
     value = parseInt(value);
 
     fullTradeData_numbers[key] = value;
   }
 
-  const tradeValues = Object.values(fullTradeData_numbers)
+  const fullTradeData_final = sortByValues(fullTradeData_numbers);
+
+  return fullTradeData_final;
+}
+
+export function findTradePartnersImport(origin) {
+  let fullTradeData = {};
+
+  let filterCriteria;
+
+  if (origin === "United Kingdom") {
+    filterCriteria = "unitedKingdom";
+  } else {
+    filterCriteria = origin.toLowerCase();
+  }
+
+  for (let i = 0; i < totalExportData.length; i++) {
+    const tradeRow = totalExportData[i];
+
+    const originatingCountry = tradeRow.Partner;
+
+    const tradeValue = tradeRow[filterCriteria];
+
+    fullTradeData[originatingCountry] = tradeValue;
+  }
+
+  const fullTradeData_final = sortByValues(fullTradeData);
+
+  return fullTradeData_final;
+}
+
+function sortByValues(obj) {
+  const tradeValues = Object.values(obj)
     .sort((a, b) => (a > b ? -1 : 1))
     .filter(Boolean);
 
-  const fullTradeData_final = {};
+  let outputObj = {};
 
-  const countryCount = Object.keys(fullTradeData).length - 2;
+  const countryCount = Object.keys(obj).length - 2;
 
   for (let i = 0; i < countryCount; i++) {
     const currentValue = tradeValues[i];
 
-    let currentKey = getKeyByValue(fullTradeData_numbers, currentValue);
+    let currentKey = getKeyByValue(obj, currentValue);
 
     if (currentKey) {
       currentKey = currentKey.charAt(0).toUpperCase() + currentKey.slice(1);
 
-      fullTradeData_final[currentKey] = currentValue;
+      if (currentKey === "UnitedKingdom") {
+        currentKey = "unitedKingdom";
+      }
+
+      outputObj[currentKey] = currentValue;
     }
   }
-
-  return fullTradeData_final;
+  return outputObj;
 }
 
 function getKeyByValue(object, value) {
   return Object.keys(object).find((key) => object[key] === value);
 }
 
-export default findTradePartners;
+export default findTradePartnersExport;

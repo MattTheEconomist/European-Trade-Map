@@ -1,5 +1,5 @@
 let mapWidth = 700;
-let mapHeight = 300;
+let mapHeight = 200;
 
 const arrowHeadLength = 10;
 
