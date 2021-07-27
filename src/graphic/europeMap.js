@@ -62,7 +62,7 @@ const EuroMap = (props) => {
     <div id="mapContainer">
       <svg
         id="europeMap"
-        viewBox="0 -100 800 450"
+        viewBox="0 -100 700 450"
         // viewBox="0 0 100 100"
       ></svg>
     </div>

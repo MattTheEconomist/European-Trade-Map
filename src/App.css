@@ -15,7 +15,12 @@
 
 #countrySelectContainer {
   background-color: #282c34;
-  margin-top: -10%;
+  height: 300px;
+  /* height: 300%; */
+  padding-top: 1rem;
+  z-index: 2;
+  margin-top: 6.5%;
+  /* margin-top: -10%; */
 }
 
 #europeMap {
@@ -29,7 +34,7 @@
 #graphContainer {
   flex: 1;
   background-color: green;
-  height: 500px;
+  height: 600px;
   width: 500px;
   margin-left: 2rem;
 }
@@ -38,6 +43,7 @@
   flex: 2;
   height: 500px;
   width: 1000px;
+  z-index: -1;
 }
 
 #destSelect {

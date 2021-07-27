@@ -9,8 +9,8 @@ const europeProjection = d3
   .center([13, 52])
   // .center([300, 52])
   // .scale([mapWidth / 1.5])
-  .scale([mapWidth / 1.8])
-  .translate([mapWidth / 1.3, mapHeight / 5]);
+  .scale([mapWidth / 1.4])
+  .translate([mapWidth / 2.2, mapHeight / 5]);
 
 const pathGenerator = d3.geoPath().projection(europeProjection);
 
