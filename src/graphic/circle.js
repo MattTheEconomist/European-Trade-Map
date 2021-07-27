@@ -20,6 +20,4 @@ export function drawCircle(svg, arrowStart) {
     .attr("stroke-width", 2)
     .attr("stroke", "black")
     .attr("fill", "white");
-
-  console.log(circleCoords);
 }

@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import { drawArrowDirection } from "./graphic/arrow";
 import CountrySelect from "./controlPanel/countrySelect";
 import EuroMap from "./graphic/europeMap";
-import clearArrows from "./graphic/clearArrows";
+import clearArrowsAndCircles from "./graphic/clearArrows";
 import {
   findTradePartnersExport,
   findTradePartnersImport,
@@ -21,7 +21,7 @@ const Source = () => {
 
   useEffect(() => {
     if (origin) {
-      clearArrows();
+      clearArrowsAndCircles();
 
       const tradePartners =
         tradeFlow === "export"
@@ -32,6 +32,8 @@ const Source = () => {
       paintCountries(colorObj, origin);
 
       drawArrowDirection(svg, origin, tradePartners, tradeFlow);
+
+      console.log(tradePartners);
     }
   }, [origin, tradeFlow]);
 

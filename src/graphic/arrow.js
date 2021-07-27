@@ -20,6 +20,10 @@ export function drawArrowDirection(svg, origin, tradePartners, tradeFlow) {
     arrowEnd = origin;
   }
 
+  if (arrowStart === "UnitedKingdom") {
+    arrowStart = "unitedKingdom";
+  }
+
   drawArrowParts(svg, arrowStart, arrowEnd, 3);
 
   drawCircle(svg, arrowStart);
@@ -28,7 +32,14 @@ export function drawArrowDirection(svg, origin, tradePartners, tradeFlow) {
 export function drawArrowParts(svg, origin, dest, lineWidth) {
   const lineCoords = createPathCoordinates(origin, dest);
 
-  // console.log(origin, dest);
+  // testing stuff
+
+  // const testCoords = createPathCoordinates("Ireland", "France");
+  const testCoords = createPathCoordinates("UnitedKingdom", "France");
+
+  console.log(testCoords);
+
+  // end test
 
   const arrowTopCoords = topArrowStartingCoordinates(origin, dest);
 
