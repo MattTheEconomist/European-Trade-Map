@@ -3,8 +3,29 @@ import * as d3 from "d3";
 import capitals from "../data/capitals.json";
 import countryList from "../data/countryList";
 import arrowHeadLength from "../mapDataPrep/graphDimensions";
+import { drawCircle } from "./circle";
 
-export function drawArrowFull(svg, origin, dest, lineWidth) {
+export function drawArrowDirection(svg, origin, tradePartners, tradeFlow) {
+  const largestTradePartner = Object.keys(tradePartners)[0];
+
+  let arrowStart;
+  let arrowEnd;
+
+  if (tradeFlow === "export") {
+    arrowStart = origin;
+    arrowEnd = largestTradePartner;
+  }
+  if (tradeFlow === "import") {
+    arrowStart = largestTradePartner;
+    arrowEnd = origin;
+  }
+
+  drawArrowParts(svg, arrowStart, arrowEnd, 3);
+
+  drawCircle(svg, arrowStart);
+}
+
+export function drawArrowParts(svg, origin, dest, lineWidth) {
   const lineCoords = createPathCoordinates(origin, dest);
 
   // console.log(origin, dest);
@@ -137,7 +158,7 @@ function degreeRotationBetweenCoordinates(coordObj) {
   return radsToDegs(radians);
 }
 
-function createPathCoordinates(origRow, destRow) {
+export function createPathCoordinates(origRow, destRow) {
   origRow = capitals.filter((row) => row.country === origRow);
   destRow = capitals.filter((row) => row.country === destRow);
 
@@ -178,4 +199,4 @@ function degsToRags(deg) {
   return (deg * Math.PI) / 180.0;
 }
 
-export default drawArrowFull;
+export default drawArrowDirection;

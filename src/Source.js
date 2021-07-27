@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as d3 from "d3";
-import drawArrowFull from "./graphic/arrow";
+import { drawArrowDirection } from "./graphic/arrow";
 import CountrySelect from "./controlPanel/countrySelect";
 import EuroMap from "./graphic/europeMap";
 import clearArrows from "./graphic/clearArrows";
@@ -21,17 +21,17 @@ const Source = () => {
 
   useEffect(() => {
     if (origin) {
+      clearArrows();
+
       const tradePartners =
         tradeFlow === "export"
           ? findTradePartnersExport(origin)
           : findTradePartnersImport(origin);
 
       const colorObj = colorByCountry(tradePartners);
-
-      console.log("tradeFlow", tradeFlow);
-      console.log("colorObj", colorObj);
-
       paintCountries(colorObj, origin);
+
+      drawArrowDirection(svg, origin, tradePartners, tradeFlow);
     }
   }, [origin, tradeFlow]);
 
@@ -59,10 +59,6 @@ const Source = () => {
 
   return (
     <>
-      {/* <br></br>
-      <br></br>
-      <br></br> */}
-
       <h3>Dynamic Title Here</h3>
 
       <div id="mapAndGraphContainer">
