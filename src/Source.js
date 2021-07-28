@@ -32,13 +32,17 @@ const Source = () => {
       paintCountries(colorObj, origin);
 
       drawArrowDirection(svg, origin, tradePartners, tradeFlow);
-
-      console.log(tradePartners);
     }
   }, [origin, tradeFlow]);
 
   function handleOriginChange(e) {
-    setOrigin(e.target.value);
+    const originSelected = e.target.value;
+
+    if (originSelected === "United Kingdom") {
+      setOrigin("unitedKingdom");
+    } else {
+      setOrigin(originSelected);
+    }
   }
 
   function handleDestChange(e) {

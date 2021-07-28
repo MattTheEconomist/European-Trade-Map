@@ -5,7 +5,7 @@ export function findTradePartnersExport(origin) {
 
   let filterCriteria;
 
-  if (origin === "United Kingdom") {
+  if (origin === "unitedKingdom") {
     filterCriteria = "unitedKingdom";
   } else {
     filterCriteria = origin.toLowerCase();
@@ -41,8 +41,7 @@ export function findTradePartnersImport(origin) {
   let fullTradeData = {};
 
   let filterCriteria;
-
-  if (origin === "United Kingdom") {
+  if (origin === "unitedKingdom") {
     filterCriteria = "unitedKingdom";
   } else {
     filterCriteria = origin.toLowerCase();
@@ -80,7 +79,8 @@ function sortByValues(obj) {
     if (currentKey) {
       currentKey = currentKey.charAt(0).toUpperCase() + currentKey.slice(1);
 
-      if (currentKey === "UnitedKingdom") {
+      // if (currentKey === "unitedKingdom") {
+      if (currentKey === "United Kingdom") {
         currentKey = "unitedKingdom";
       }
 

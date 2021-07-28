@@ -4,7 +4,6 @@ import countryList from "../data/countryList";
 import centroids from "../data/centroids.json";
 
 import { europeProjection } from "../mapDataPrep/mapDrawFunctions";
-import M from "minimatch";
 
 const removeTheseCountries = [
   "Albania",
@@ -12,14 +11,35 @@ const removeTheseCountries = [
   "Malta",
   "Cyprus",
   "Maldova",
+  "Luxembourg",
+  "Slovenia",
+  "Moldova",
+  "Switzerland",
+  "Denmark",
+  "Belgium",
 ];
 
-const makeTheseSmaller = ["Portugal", "Switzerland", "Bosnia", "Denmark"];
+const makeTheseSmaller = [
+  "Portugal",
+  "Switzerland",
+  "Bosnia",
+  "Denmark",
+  "unitedKingdom",
+  "Belgium",
+  "Croatia",
+  "Netherlands",
+];
+
+const boldThese = ["Greece", "Portugal"];
+
+const centroidsFiltered = centroids.filter(
+  (row) => !removeTheseCountries.includes(row.name)
+);
 
 export function drawCapitals(svg) {
   svg
     .selectAll("text")
-    .data(centroids)
+    .data(centroidsFiltered)
     .enter()
     .append("text")
     .attr("x", function (d) {
@@ -28,8 +48,19 @@ export function drawCapitals(svg) {
     .attr("y", function (d) {
       return europeProjection([d.longitude, d.latitude])[1];
     })
-    .text((d) => d.name)
-    .style("font-size", "8px")
+    .text((d) => {
+      if (d.name === "unitedKingdom") {
+        return "United Kingdom";
+      }
+      return d.name;
+    })
+    .style("font-size", (d) => {
+      if (makeTheseSmaller.includes(d.name)) {
+        return "6.5px";
+      } else {
+        return "8px";
+      }
+    })
     .attr("text-anchor", "middle");
 }
 
