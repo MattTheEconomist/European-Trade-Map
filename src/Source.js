@@ -10,12 +10,13 @@ import {
 } from "./mapDataPrep/findTradePartners";
 import calculateArrowWidth from "./graphic/arrowWidths";
 import colorByCountry, { paintCountries } from "./graphic/colorByCountry";
-import { color, utcFormat } from "d3";
+import BarGraph from "./graphic/BarGraph";
 
 const Source = () => {
   const [origin, setOrigin] = useState("Germany");
   const [dest, setDest] = useState("Italy");
   const [tradeFlow, setTradeFlow] = useState("export");
+  // const [tradePartners, setTradePartners] = useState(findTradePartnersExport(origin));
 
   const svg = d3.select("#europeMap");
 
@@ -27,6 +28,14 @@ const Source = () => {
         tradeFlow === "export"
           ? findTradePartnersExport(origin)
           : findTradePartnersImport(origin);
+
+      // if (tradeFlow === "export") {
+      //   setTradePartners(findTradePartnersExport(origin));
+      // } else {
+      //   setTradePartners(findTradePartnersImport(origin));
+      // }
+
+      console.log(tradePartners);
 
       const colorObj = colorByCountry(tradePartners);
       paintCountries(colorObj, origin);
@@ -52,8 +61,6 @@ const Source = () => {
   function tradeFlowToImport() {
     if (tradeFlow === "export") {
       setTradeFlow("import");
-
-      findTradePartnersImport(origin);
     }
   }
 
@@ -68,7 +75,9 @@ const Source = () => {
       <h3>Dynamic Title Here</h3>
 
       <div id="mapAndGraphContainer">
-        <div id="graphContainer"></div>
+        <div id="graphContainer">
+          <BarGraph origin={origin} tradeFlow={tradeFlow} />
+        </div>
         <EuroMap origin={origin} />
       </div>
 

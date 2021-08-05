@@ -3,6 +3,12 @@ let mapHeight = 200;
 
 const arrowHeadLength = 10;
 
-export { mapWidth, mapHeight, arrowHeadLength };
+const barGraphDims = {
+  width: 300,
+  height: 600,
+  barHeight: 15,
+};
+
+export { mapWidth, mapHeight, arrowHeadLength, barGraphDims };
 
 export default arrowHeadLength;

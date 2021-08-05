@@ -11,8 +11,6 @@ export function calculateArrowWidth(tradeVolume) {
     .domain([maxVol, minVol])
     .range([1, 8]);
 
-  console.log("widthScale", widthScaleFunc(tradeVolume));
-
   return 3;
   // return widthScaleFunc(tradeVolume);
 }

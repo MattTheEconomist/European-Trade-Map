@@ -42,8 +42,6 @@ export function drawArrowParts(svg, origin, dest, lineWidth) {
   const testCoords = createPathCoordinates("Ireland", "France");
   // const testCoords = createPathCoordinates("Czechia", "France");
 
-  console.log("testCoords", testCoords);
-
   // end test
 
   const arrowTopCoords = topArrowStartingCoordinates(origin, dest);
