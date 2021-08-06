@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 
 const CountrySelect = (props) => {
   const {
-    handleDestChange,
     handleOriginChange,
     origin,
     dest,
@@ -21,16 +20,11 @@ const CountrySelect = (props) => {
     <option key={ind}>{el}</option>
   ));
 
-  const destSelect = document.getElementById("destSelect");
   const originSelect = document.getElementById("originSelect");
 
   return (
     <div id="countrySelectContainer">
       <select id="originSelect" onChange={handleOriginChange} value={origin}>
-        {optionsHtml}
-      </select>
-
-      <select id="destSelect" onChange={handleDestChange} value={dest}>
         {optionsHtml}
       </select>
 

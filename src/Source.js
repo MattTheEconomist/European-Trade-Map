@@ -29,14 +29,6 @@ const Source = () => {
           ? findTradePartnersExport(origin)
           : findTradePartnersImport(origin);
 
-      // if (tradeFlow === "export") {
-      //   setTradePartners(findTradePartnersExport(origin));
-      // } else {
-      //   setTradePartners(findTradePartnersImport(origin));
-      // }
-
-      console.log(tradePartners);
-
       const colorObj = colorByCountry(tradePartners);
       paintCountries(colorObj, origin);
 
@@ -52,10 +44,6 @@ const Source = () => {
     } else {
       setOrigin(originSelected);
     }
-  }
-
-  function handleDestChange(e) {
-    setDest(e.target.value);
   }
 
   function tradeFlowToImport() {
@@ -82,7 +70,6 @@ const Source = () => {
       </div>
 
       <CountrySelect
-        handleDestChange={handleDestChange}
         handleOriginChange={handleOriginChange}
         origin={origin}
         dest={dest}

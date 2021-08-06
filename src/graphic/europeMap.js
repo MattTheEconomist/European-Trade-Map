@@ -54,7 +54,7 @@ const EuroMap = (props) => {
     const countries = d3.selectAll(".countryPath");
 
     countries.on("click", function () {
-      console.log(this.id);
+      // console.log(this.id);
     });
   }
 

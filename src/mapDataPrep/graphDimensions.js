@@ -7,6 +7,7 @@ const barGraphDims = {
   width: 300,
   height: 600,
   barHeight: 15,
+  barMargin: 3,
 };
 
 export { mapWidth, mapHeight, arrowHeadLength, barGraphDims };
