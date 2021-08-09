@@ -7,14 +7,13 @@ import {
 } from "../mapDataPrep/findTradePartners";
 
 import { colorByCountry } from "./colorByCountry";
-import { color } from "d3";
 
 export function BarGraph(props) {
   const { origin, tradeFlow } = props;
-  const [tradePartnersFull, setTradePartnersFull] = useState(
-    // createTradeData(origin, tradeFlow)
-    {}
-  );
+  // const [tradePartnersFull, setTradePartnersFull] = useState(
+  //   // createTradeData(origin, tradeFlow)
+  //   {}
+  // );
 
   const {
     height,
@@ -23,27 +22,28 @@ export function BarGraph(props) {
     barMarginBetween,
     marginTop,
     barStartLeft,
+    svgHeight,
   } = barGraphDims;
 
   useEffect(() => {
-    const updatedTradePartnersFull = createTradeData(origin, tradeFlow);
-    const tradePartnersTop = createAbbrevData(updatedTradePartnersFull);
+    const tradePartnersFull = createTradeData(origin, tradeFlow);
+    const tradePartnersTop = createAbbrevData(tradePartnersFull);
     const barData = createPortionBarData(tradePartnersTop);
-    drawCountryNames(updatedTradePartnersFull);
+    drawCountryNames(tradePartnersFull);
     drawAxis();
     createBars(barData);
-    reDrawBars(barData, updatedTradePartnersFull);
+    reDrawBars(barData, tradePartnersFull);
   }, []);
 
   useEffect(() => {
-    const updatedTradePartnersFull = createTradeData(origin, tradeFlow);
-    const tradePartnersTop = createAbbrevData(updatedTradePartnersFull);
+    const tradePartnersFull = createTradeData(origin, tradeFlow);
+    const tradePartnersTop = createAbbrevData(tradePartnersFull);
 
     const barData = createPortionBarData(tradePartnersTop);
 
     drawAxis();
-    drawCountryNames(updatedTradePartnersFull);
-    reDrawBars(barData, updatedTradePartnersFull);
+    drawCountryNames(tradePartnersFull);
+    reDrawBars(barData, tradePartnersFull);
   }, [origin, tradeFlow]);
 
   // global stuffs
@@ -185,7 +185,7 @@ export function BarGraph(props) {
     <>
       <h2 id="barGraphTitle"></h2>
       <BarTitle origin={origin} tradeFlow={tradeFlow} />
-      <svg id="graphSvg" height={500}></svg>
+      <svg id="graphSvg" height={svgHeight}></svg>
     </>
   );
 }
@@ -193,7 +193,6 @@ export function BarGraph(props) {
 function BarTitle(props) {
   const { origin, tradeFlow } = props;
 
-  console.log("traeFlow", tradeFlow);
   function upDateBarTitle(origin, tradeFlow) {
     let rezTitle;
     if (tradeFlow === "export") {

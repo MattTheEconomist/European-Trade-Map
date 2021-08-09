@@ -11,6 +11,7 @@ import {
 import calculateArrowWidth from "./graphic/arrowWidths";
 import colorByCountry, { paintCountries } from "./graphic/colorByCountry";
 import BarGraph from "./graphic/BarGraph";
+import ForceBlocks from "./graphic/forceBlocks";
 
 const Source = () => {
   const [origin, setOrigin] = useState("Germany");
@@ -65,6 +66,7 @@ const Source = () => {
       <div id="mapAndGraphContainer">
         <div id="graphContainer">
           <BarGraph origin={origin} tradeFlow={tradeFlow} />
+          <ForceBlocks origin={origin} tradeFlow={tradeFlow} />
         </div>
         <EuroMap origin={origin} />
       </div>
