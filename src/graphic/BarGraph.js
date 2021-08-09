@@ -6,72 +6,52 @@ import {
   findTradePartnersImport,
 } from "../mapDataPrep/findTradePartners";
 
+import { colorByCountry } from "./colorByCountry";
+import { color } from "d3";
+
 export function BarGraph(props) {
   const { origin, tradeFlow } = props;
   const [tradePartnersFull, setTradePartnersFull] = useState(
-    createTradeData(origin, tradeFlow)
+    // createTradeData(origin, tradeFlow)
+    {}
   );
 
-  const { height, width, barHeight, barMargin } = barGraphDims;
-
-  // let barData, countries;
-
-  // useEffect(() => {
-  //   // const tradePartnersFull = createTradeData(origin, tradeFlow);
-
-  //   const tradePartnersTop = createAbbrevData(tradePartnersFull);
-  //   const barData = Object.values(tradePartnersTop);
-  //   updateBarWidths(barData);
-  //   createBars(barData);
-  // }, []);
-
-  const tradePartnersTop = createAbbrevData(tradePartnersFull);
-  const barData = Object.values(tradePartnersTop);
-  updateBarWidths(barData);
-  createBars(barData);
-
-  // useEffect(() => {
-  //   // setTradePartnersTop(createAbbrevData(tradePartnersFull));
-
-  //   const tradePartnersFull = createTradeData(origin, tradeFlow);
-  //   const tradePartnersTop = createAbbrevData(tradePartnersFull);
-  //   const barData = Object.values(tradePartnersTop);
-  //   updateBarWidths(barData);
-  // }, [origin, tradeFlow]);
+  const {
+    height,
+    width,
+    barHeight,
+    barMarginBetween,
+    marginTop,
+    barStartLeft,
+  } = barGraphDims;
 
   useEffect(() => {
-    // d3.selectAll(".bar").remove();
+    const updatedTradePartnersFull = createTradeData(origin, tradeFlow);
+    const tradePartnersTop = createAbbrevData(updatedTradePartnersFull);
+    const barData = createPortionBarData(tradePartnersTop);
+    drawCountryNames(updatedTradePartnersFull);
+    drawAxis();
+    createBars(barData);
+    reDrawBars(barData, updatedTradePartnersFull);
+  }, []);
 
-    const tradePartnersFull = createTradeData(origin, tradeFlow);
-    const tradePartnersTop = createAbbrevData(tradePartnersFull);
-    const barData = Object.values(tradePartnersTop);
+  useEffect(() => {
+    const updatedTradePartnersFull = createTradeData(origin, tradeFlow);
+    const tradePartnersTop = createAbbrevData(updatedTradePartnersFull);
 
-    const svg = d3.select("#graphSvg");
-    const xScale = d3
-      .scaleLinear()
-      .domain([0, d3.max(barData)])
-      .range([0, width]);
+    const barData = createPortionBarData(tradePartnersTop);
 
-    svg
-      .selectAll(".bar")
-      .data(barData)
-      .enter()
-      .append("rect")
-      .attr("x", 20)
-      .attr("y", (d, i) => i * (barHeight + barMargin) + 30)
-      // .attr("width", (d) => {
-      //   return xScale(d);
-      // })
-      .attr("height", barHeight)
-      .attr("class", "bar");
-
-    d3.selectAll(".bar")
-      .transition()
-      .duration(1500)
-      .attr("width", (d) => {
-        return xScale(d);
-      });
+    drawAxis();
+    drawCountryNames(updatedTradePartnersFull);
+    reDrawBars(barData, updatedTradePartnersFull);
   }, [origin, tradeFlow]);
+
+  // global stuffs
+  const svg = d3.select("#graphSvg");
+
+  const xScale = d3.scaleLinear().domain([0, 0.6]).range([0, width]);
+
+  // call deez
 
   function createAbbrevData(tradePartnersFull) {
     const allCountries = Object.keys(tradePartnersFull);
@@ -79,11 +59,22 @@ export function BarGraph(props) {
 
     let rez = {};
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 7; i++) {
       rez[allCountries[i]] = allVolumes[i];
     }
 
     return rez;
+  }
+
+  function createPortionBarData(tradePartnersTop) {
+    const tradeVolumes = Object.values(tradePartnersTop);
+    const totalTrade = tradeVolumes.reduce((a, b) => a + b, 0);
+
+    const unroundedData = tradeVolumes.map((el) => el / totalTrade);
+
+    const portionBarData = unroundedData.map((el) => parseFloat(el.toFixed(3)));
+
+    return portionBarData;
   }
 
   function createTradeData(origin, tradeFlow) {
@@ -95,26 +86,62 @@ export function BarGraph(props) {
     return tradePartnersFull;
   }
 
-  function updateBarWidths(barData) {
-    const xScale = d3
-      .scaleLinear()
-      .domain([0, d3.max(barData)])
-      .range([0, width]);
+  function drawCountryNames(tradePartnersFull) {
+    d3.selectAll(".barLabels").remove();
 
-    d3.selectAll(".bar")
+    const allCountries = Object.keys(tradePartnersFull);
+
+    let topSevenCountries = [];
+
+    for (let i = 0; i < 7; i++) {
+      let currentCountry = allCountries[i];
+      if (currentCountry === "UnitedKingdom") {
+        currentCountry = "U.K.";
+      }
+
+      topSevenCountries.push(currentCountry);
+    }
+
+    let svg = d3.select("#graphSvg");
+
+    svg
+      .selectAll(".barLabels")
+      .data(topSevenCountries)
+      .enter()
+      .append("text")
+      .text((d) => d)
+      .attr("x", 10)
+      .attr("y", (d, i) => i * (barHeight + barMarginBetween) + marginTop + 10)
+      .attr("class", "barLabels");
+  }
+
+  function reDrawBars(barData, tradePartnersFull) {
+    const colorObj = colorByCountry(tradePartnersFull);
+
+    const colorValues = Object.values(colorObj);
+
+    svg
+      .selectAll(".bar")
       .data(barData)
       .enter()
+      .append("rect")
+      .attr("x", barStartLeft)
+      .attr("y", (d, i) => i * (barHeight + barMarginBetween) + marginTop)
+      .attr("height", barHeight)
+      .attr("class", "bar");
+
+    d3.selectAll(".bar")
       .transition()
       .duration(1500)
-      .attr("width", (d) => xScale(d));
+      .attr("width", (d) => {
+        return xScale(d);
+      })
+      .attr("fill", (d, i) => {
+        return colorValues[i];
+      });
   }
 
   function createBars(barData) {
-    const xScale = d3
-      .scaleLinear()
-      .domain([0, d3.max(barData)])
-      .range([0, width]);
-
     const svg = d3.select("#graphSvg");
 
     svg
@@ -122,8 +149,8 @@ export function BarGraph(props) {
       .data(barData)
       .enter()
       .append("rect")
-      .attr("x", 20)
-      .attr("y", (d, i) => i * (barHeight + barMargin) + 30)
+      .attr("x", barStartLeft)
+      .attr("y", (d, i) => i * (barHeight + barMarginBetween) + marginTop)
       .attr("width", (d) => {
         return xScale(d);
       })
@@ -131,7 +158,56 @@ export function BarGraph(props) {
       .attr("class", "bar");
   }
 
-  return <svg id="graphSvg" height={500}></svg>;
+  function drawAxis() {
+    const svg = d3.select("#graphSvg");
+
+    d3.select("#barGraphAxis").remove();
+
+    const axisData = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
+
+    const formatPercent = d3.format(".0%");
+
+    const x_axis = d3
+      .axisBottom()
+      .scale(xScale)
+      .ticks(6)
+      .tickFormat(formatPercent);
+
+    svg
+      .append("g")
+      // .attr("transform", `translate (${barStartLeft}, ${marginTop - 20})`)
+      .attr("transform", `translate (${barStartLeft}, ${160})`)
+      .attr("id", "barGraphAxis")
+      .call(x_axis);
+  }
+
+  return (
+    <>
+      <h2 id="barGraphTitle"></h2>
+      <BarTitle origin={origin} tradeFlow={tradeFlow} />
+      <svg id="graphSvg" height={500}></svg>
+    </>
+  );
+}
+
+function BarTitle(props) {
+  const { origin, tradeFlow } = props;
+
+  console.log("traeFlow", tradeFlow);
+  function upDateBarTitle(origin, tradeFlow) {
+    let rezTitle;
+    if (tradeFlow === "export") {
+      rezTitle = `${origin} Exports to`;
+    }
+
+    if (tradeFlow === "import") {
+      rezTitle = `${origin} Imports from`;
+    }
+
+    return rezTitle;
+  }
+
+  return <h4>{upDateBarTitle(origin, tradeFlow)}</h4>;
 }
 
 export default BarGraph;

@@ -5,9 +5,11 @@ const arrowHeadLength = 10;
 
 const barGraphDims = {
   width: 300,
-  height: 600,
+  height: 800,
+  barStartLeft: 100,
   barHeight: 15,
-  barMargin: 3,
+  barMarginBetween: 3,
+  marginTop: 30,
 };
 
 export { mapWidth, mapHeight, arrowHeadLength, barGraphDims };

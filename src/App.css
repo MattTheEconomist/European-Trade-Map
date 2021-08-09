@@ -33,10 +33,15 @@
 
 #graphContainer {
   flex: 1;
-  background-color: green;
+  /* background-color: green; */
   height: 600px;
-  width: 500px;
+  /* width: 700px; */
   margin-left: 2rem;
+}
+
+#graphSvg {
+  margin-left: -15%;
+  width: 410px;
 }
 
 #mapContainer {

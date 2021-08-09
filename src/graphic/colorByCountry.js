@@ -56,6 +56,8 @@ export function colorByCountry(tradePartners) {
     countryColorObj[currentCountry] = currentColor;
   }
 
+  // console.log("countryColorObj", countryColorObj);
+
   return countryColorObj;
 }
 
