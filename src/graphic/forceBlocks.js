@@ -10,7 +10,10 @@ import {
 import { colorByCountry } from "./colorByCountry";
 
 export function ForceBlocks(props) {
-  const { origin, tradeFlow, originChangeFromForce } = props;
+  const { origin, tradeFlow, originChangeFromGraphic } = props;
+
+  const [tooltipStyles, setTooltipStyles] = useState({});
+  const [tooltipText, setTooltipText] = useState({});
 
   useEffect(() => {
     createBlocks(tradeFlow);
@@ -19,6 +22,9 @@ export function ForceBlocks(props) {
 
   useEffect(() => {
     createBlocks(tradeFlow);
+    setTooltipStyles({
+      visibilty: "hidden",
+    });
   }, []);
 
   function generateRow(idx) {
@@ -106,8 +112,23 @@ export function ForceBlocks(props) {
       .on("click", function () {
         const thisId = this.id;
         const countryName = thisId.replace("Block", "");
-        originChangeFromForce(countryName);
-      });
+        originChangeFromGraphic(countryName);
+      })
+      .on("mouseover", function () {
+        setTooltipStyles({
+          ...tooltipStyles,
+          toolX: this.x.baseVal.value,
+          toolY: this.y.baseVal.value,
+          visibility: "visible",
+        });
+      })
+      // .on("mouseout", () => setTooltipViz("hidden"));
+      .on("mouseout", () =>
+        setTooltipStyles({
+          ...tooltipStyles,
+          visibility: "hidden",
+        })
+      );
   }
 
   function reDrawBlocks(tradeFlow) {
@@ -167,6 +188,10 @@ export function ForceBlocks(props) {
 
   return (
     <>
+      <div id="container">
+        <ForceBlocksTooltip tooltipStyles={tooltipStyles} />
+      </div>
+
       <h3 id="forceBlocksTitle">
         {origin}'s share of all{" "}
         {tradeFlow.charAt(0).toUpperCase() + tradeFlow.slice(1)}s
@@ -175,5 +200,40 @@ export function ForceBlocks(props) {
     </>
   );
 }
+
+const ForceBlocksTooltip = (props) => {
+  const { tooltipStyles } = props;
+
+  const { toolX, toolY, visibility } = tooltipStyles;
+
+  console.log(tooltipStyles);
+
+  const yOffset = 70;
+  const xOffset = 100;
+
+  const yPoz = toolY + yOffset;
+  const xPoz = toolX + xOffset;
+
+  let newViz;
+
+  if (!toolX) {
+    newViz = "hidden";
+  } else {
+    newViz = visibility;
+  }
+
+  const styles = {
+    top: yPoz,
+    left: xPoz,
+    width: "100px",
+    visibility: newViz,
+  };
+
+  return (
+    <div id="forceTooltip" style={styles}>
+      this is the tooltip{" "}
+    </div>
+  );
+};
 
 export default ForceBlocks;

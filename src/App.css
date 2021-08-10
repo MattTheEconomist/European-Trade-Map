@@ -49,12 +49,28 @@
   flex: 2;
   height: 500px;
   width: 1000px;
-  z-index: -1;
+  /* z-index: -1; */
 }
 
 #forceBlocksTitle {
   margin-left: -7%;
   /* margin-right: -20%; */
+}
+#forceTooltip {
+  position: relative;
+  background-color: red;
+  width: 100;
+  height: 100;
+  border-radius: 10px;
+  /* visibility: ; */
+}
+
+.hideMe {
+  visibility: hidden;
+}
+
+.showMe {
+  visibility: visible;
 }
 
 #destSelect {

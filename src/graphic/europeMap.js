@@ -7,6 +7,8 @@ import colorByCountry, { paintCountries } from "./colorByCountry";
 const EuroMap = (props) => {
   const [geoMap, setGeoMap] = useState({});
 
+  const { originChangeFromGraphic, origin } = props;
+
   //   draw map functions
   useEffect(() => {
     fetch(geoJsonUrl).then((response) => {
@@ -54,6 +56,7 @@ const EuroMap = (props) => {
     const countries = d3.selectAll(".countryPath");
 
     countries.on("click", function () {
+      originChangeFromGraphic(this.id);
       // console.log(this.id);
     });
   }

@@ -46,7 +46,7 @@ const Source = () => {
     }
   }
 
-  function originChangeFromForce(countryName) {
+  function originChangeFromGraphic(countryName) {
     setOrigin(countryName);
   }
 
@@ -72,10 +72,13 @@ const Source = () => {
           <ForceBlocks
             origin={origin}
             tradeFlow={tradeFlow}
-            originChangeFromForce={originChangeFromForce}
+            originChangeFromGraphic={originChangeFromGraphic}
           />
         </div>
-        <EuroMap origin={origin} />
+        <EuroMap
+          origin={origin}
+          originChangeFromGraphic={originChangeFromGraphic}
+        />
       </div>
 
       <CountrySelect
