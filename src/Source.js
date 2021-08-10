@@ -15,9 +15,7 @@ import ForceBlocks from "./graphic/forceBlocks";
 
 const Source = () => {
   const [origin, setOrigin] = useState("Germany");
-  const [dest, setDest] = useState("Italy");
   const [tradeFlow, setTradeFlow] = useState("export");
-  // const [tradePartners, setTradePartners] = useState(findTradePartnersExport(origin));
 
   const svg = d3.select("#europeMap");
 
@@ -31,6 +29,7 @@ const Source = () => {
           : findTradePartnersImport(origin);
 
       const colorObj = colorByCountry(tradePartners);
+
       paintCountries(colorObj, origin);
 
       drawArrowDirection(svg, origin, tradePartners, tradeFlow);
@@ -45,6 +44,10 @@ const Source = () => {
     } else {
       setOrigin(originSelected);
     }
+  }
+
+  function originChangeFromForce(countryName) {
+    setOrigin(countryName);
   }
 
   function tradeFlowToImport() {
@@ -66,7 +69,11 @@ const Source = () => {
       <div id="mapAndGraphContainer">
         <div id="graphContainer">
           <BarGraph origin={origin} tradeFlow={tradeFlow} />
-          <ForceBlocks origin={origin} tradeFlow={tradeFlow} />
+          <ForceBlocks
+            origin={origin}
+            tradeFlow={tradeFlow}
+            originChangeFromForce={originChangeFromForce}
+          />
         </div>
         <EuroMap origin={origin} />
       </div>
@@ -74,7 +81,6 @@ const Source = () => {
       <CountrySelect
         handleOriginChange={handleOriginChange}
         origin={origin}
-        dest={dest}
         tradeFlow={tradeFlow}
         tradeFlowToExport={tradeFlowToExport}
         tradeFlowToImport={tradeFlowToImport}

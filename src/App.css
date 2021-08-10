@@ -52,6 +52,11 @@
   z-index: -1;
 }
 
+#forceBlocksTitle {
+  margin-left: -7%;
+  /* margin-right: -20%; */
+}
+
 #destSelect {
   background-color: grey;
 }
