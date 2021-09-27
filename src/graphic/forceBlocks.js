@@ -9,11 +9,14 @@ import {
 
 import { colorByCountry } from "./colorByCountry";
 
+import ForceBlocksTooltip from "./forceBlocksTooltip";
+
 export function ForceBlocks(props) {
   const { origin, tradeFlow, originChangeFromGraphic } = props;
 
   const [tooltipStyles, setTooltipStyles] = useState({});
-  const [tooltipText, setTooltipText] = useState({});
+  const [blockHovered, setBlockHovered] = useState("");
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     createBlocks(tradeFlow);
@@ -121,14 +124,21 @@ export function ForceBlocks(props) {
           toolY: this.y.baseVal.value,
           visibility: "visible",
         });
+
+        const currentBlock = d3.select(this);
+        let currentBlockID = currentBlock._groups[0][0].attributes.id.nodeValue;
+        setIsHovering(true);
+        setBlockHovered(currentBlockID);
       })
-      // .on("mouseout", () => setTooltipViz("hidden"));
-      .on("mouseout", () =>
+      .on("mouseout", () => {
         setTooltipStyles({
           ...tooltipStyles,
           visibility: "hidden",
-        })
-      );
+        });
+
+        setBlockHovered("");
+        setIsHovering(false);
+      });
   }
 
   function reDrawBlocks(tradeFlow) {
@@ -188,52 +198,35 @@ export function ForceBlocks(props) {
 
   return (
     <>
-      <div id="container">
-        <ForceBlocksTooltip tooltipStyles={tooltipStyles} />
-      </div>
-
       <h3 id="forceBlocksTitle">
         {origin}'s share of all{" "}
         {tradeFlow.charAt(0).toUpperCase() + tradeFlow.slice(1)}s
       </h3>
       <svg id="blockSvg" height={400}></svg>
+      <ForceBlocksTooltip
+        isHovering={isHovering}
+        tooltipStyles={tooltipStyles}
+        blockHovered={blockHovered}
+        tradeFlow={tradeFlow}
+      />
     </>
   );
 }
 
-const ForceBlocksTooltip = (props) => {
-  const { tooltipStyles } = props;
+// const useMousePosition = () => {
+//   const [mousePosition, setMousePosition] = useState({ x: null, y: null });
 
-  const { toolX, toolY, visibility } = tooltipStyles;
+//   const updateMousePosition = (ev) => {
+//     setMousePosition({ x: ev.clientX, y: ev.clientY });
+//   };
 
-  console.log(tooltipStyles);
+//   useEffect(() => {
+//     window.addEventListener("mousemove", updateMousePosition);
 
-  const yOffset = 70;
-  const xOffset = 100;
+//     return () => window.removeEventListener("mousemove", updateMousePosition);
+//   }, []);
 
-  const yPoz = toolY + yOffset;
-  const xPoz = toolX + xOffset;
-
-  let newViz;
-
-  if (!toolX) {
-    newViz = "hidden";
-  } else {
-    newViz = visibility;
-  }
-
-  const styles = {
-    top: yPoz,
-    left: xPoz,
-    width: "100px",
-    visibility: newViz,
-  };
-
-  return (
-    <div id="forceTooltip" style={styles}>
-      this is the tooltip{" "}
-    </div>
-  );
-};
+//   return mousePosition;
+// };
 
 export default ForceBlocks;
