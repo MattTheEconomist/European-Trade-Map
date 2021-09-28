@@ -20,6 +20,8 @@ const Source = () => {
   const svg = d3.select("#europeMap");
 
   useEffect(() => {
+    d3.selectAll(".countryPath").attr("fill", "grey");
+
     if (origin) {
       clearArrowsAndCircles();
 
@@ -36,7 +38,27 @@ const Source = () => {
     }
   }, [origin, tradeFlow]);
 
-  useEffect(() => {}, [origin, tradeFlow]);
+  useEffect(() => {
+    // clearArrowsAndCircles();
+
+    // d3.selectAll(".countryPath").attr("fill", "grey");
+
+    // const tradePartners =
+    //   tradeFlow === "export"
+    //     ? findTradePartnersExport(origin)
+    //     : findTradePartnersImport(origin);
+
+    // const colorObj = colorByCountry(tradePartners);
+
+    // console.log("colorObj onload", colorObj);
+    // colorObj[origin] = "green";
+
+    // paintCountries(colorObj, origin);
+
+    setTimeout(() => {
+      setOrigin("Italy");
+    }, 100);
+  }, []);
 
   function handleOriginChange(e) {
     const originSelected = e.target.value;

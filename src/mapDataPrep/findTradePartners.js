@@ -18,6 +18,8 @@ export function findTradePartnersExport(origin) {
 
   fullTradeData = fullTradeData[0];
 
+  fullTradeData["Partner"] = filterCriteria;
+
   fullTradeData = Object.keys(fullTradeData)
     .filter((key) => key !== "european")
     .reduce((obj, key) => {
@@ -34,12 +36,6 @@ export function findTradePartnersExport(origin) {
   }
 
   const fullTradeData_final = sortByValues(fullTradeData_numbers);
-
-  // console.log(
-  //   "find tradepartners exp before final",
-  //   Object.keys(fullTradeData).length
-  //   // fullTradeData
-  // );
 
   return fullTradeData_final;
 }
@@ -67,13 +63,6 @@ export function findTradePartnersImport(origin) {
   fullTradeData["Partner"] = filterCriteria;
 
   const fullTradeData_final = sortByValues(fullTradeData);
-
-  // // console.log("find tradepartners import, before final", fullTradeData);
-  // console.log(
-  //   "find tradepartners import, before final",
-  //   Object.keys(fullTradeData).length
-  //   // fullTradeData
-  // );
 
   return fullTradeData_final;
 }

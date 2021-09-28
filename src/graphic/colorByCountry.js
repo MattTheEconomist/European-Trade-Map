@@ -10,7 +10,12 @@ export function paintCountries(colorObj, origin) {
 function highlightSelectedCountry(origin) {
   let selectionCriteria = origin;
 
-  if (selectionCriteria === "United Kingdom") {
+  // console.log(selectionCriteria);
+
+  if (
+    selectionCriteria === "United Kingdom" ||
+    selectionCriteria === "UnitedKingdom"
+  ) {
     selectionCriteria = "unitedKingdom";
   }
 
@@ -23,9 +28,18 @@ function highlightSelectedCountry(origin) {
 function transitionCountryColors(colorObj) {
   setTimeout(() => {
     const countries = Object.keys(colorObj);
+    console.log("countries", countries, colorObj);
+
     for (let i = 0; i < countries.length; i++) {
-      const currentCountryName = countries[i];
-      const selectedCountry = d3.select(`#${currentCountryName}`);
+      let currentCountryName = countries[i];
+
+      let countryNameForSelection = currentCountryName;
+
+      if (countryNameForSelection === "UnitedKingdom") {
+        countryNameForSelection = "unitedKingdom";
+      }
+
+      const selectedCountry = d3.select(`#${countryNameForSelection}`);
 
       selectedCountry
         .transition()

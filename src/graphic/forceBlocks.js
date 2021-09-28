@@ -72,8 +72,6 @@ export function ForceBlocks(props) {
       (a, b) => b[keyString] - a[keyString]
     );
 
-    console.log("summaryDataSorted", summaryDataSorted);
-
     const tradeVolumes = summaryDataSorted.map((row) => row[keyString]);
 
     let countryNames = summaryDataSorted.map((row) => row.Partner);
@@ -190,7 +188,13 @@ export function ForceBlocks(props) {
 
         const thisCountryName = currentBlockID.slice(0, -5);
 
-        if (origin === thisCountryName) {
+        let originForComparison = origin;
+
+        if (originForComparison === "unitedKingdom") {
+          originForComparison = "UnitedKingdom";
+        }
+
+        if (originForComparison === thisCountryName) {
           return "green";
         }
 
