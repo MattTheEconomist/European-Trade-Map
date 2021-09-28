@@ -72,9 +72,12 @@ export function ForceBlocks(props) {
       (a, b) => b[keyString] - a[keyString]
     );
 
+    console.log("summaryDataSorted", summaryDataSorted);
+
     const tradeVolumes = summaryDataSorted.map((row) => row[keyString]);
 
     let countryNames = summaryDataSorted.map((row) => row.Partner);
+
     countryNames = countryNames.map(
       (el) => el.charAt(0).toUpperCase() + el.slice(1)
     );
@@ -181,11 +184,16 @@ export function ForceBlocks(props) {
       .attr("height", (d) => {
         return blockScale(d);
       })
-      .attr("fill", (d, i) => {
-        const thisCountryName = countryNames[i];
+      .attr("fill", function (d, i) {
+        const currentBlock = d3.select(this);
+        let currentBlockID = currentBlock._groups[0][0].attributes.id.nodeValue;
+
+        const thisCountryName = currentBlockID.slice(0, -5);
+
         if (origin === thisCountryName) {
           return "green";
         }
+
         return colorObj[thisCountryName];
       });
   }
@@ -202,8 +210,6 @@ export function ForceBlocks(props) {
       tradeFlow === "export"
         ? findTradePartnersExport(origin)
         : findTradePartnersImport(origin);
-
-    console.log("origin from createTradeData", origin);
 
     return tradePartnersFull;
   }

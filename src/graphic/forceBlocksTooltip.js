@@ -15,8 +15,6 @@ export const ForceBlocksTooltip = (props) => {
 
   let countryName = blockHovered.slice(0, -5).toLowerCase();
 
-  // console.log("countryName", countryName);
-
   if (countryName === "unitedkingdom") {
     countryName = "unitedKingdom";
   }

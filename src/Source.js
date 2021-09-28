@@ -36,6 +36,8 @@ const Source = () => {
     }
   }, [origin, tradeFlow]);
 
+  useEffect(() => {}, [origin, tradeFlow]);
+
   function handleOriginChange(e) {
     const originSelected = e.target.value;
 
