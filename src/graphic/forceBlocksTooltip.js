@@ -12,11 +12,19 @@ export const ForceBlocksTooltip = (props) => {
   }
 
   toolY += 310;
-  console.log("toolY", toolY);
 
-  const countryName = blockHovered.slice(0, -5).toLowerCase();
+  let countryName = blockHovered.slice(0, -5).toLowerCase();
+
+  // console.log("countryName", countryName);
+
+  if (countryName === "unitedkingdom") {
+    countryName = "unitedKingdom";
+  }
 
   let summaryDataRow = summaryData.filter((row) => row.Partner === countryName);
+
+  const countryNameText =
+    countryName.charAt(0).toUpperCase() + countryName.slice(1);
 
   const keyString =
     tradeFlow === "import" ? "countryTotalImports" : "countryTotalExports";
@@ -49,7 +57,7 @@ export const ForceBlocksTooltip = (props) => {
   const tradeFlowText =
     tradeFlow.charAt(0).toUpperCase() + tradeFlow.slice(1) + "s";
 
-  const yOffset = 60;
+  const yOffset = 55;
   const xOffset = 100;
 
   const yPoz = toolY + yOffset;
@@ -74,13 +82,14 @@ export const ForceBlocksTooltip = (props) => {
     width: "100px",
     visibility: newViz,
     position: "absolute",
-    // position: "relative",
   };
 
   return (
     <div id="forceTooltip" style={styles}>
-      <span>{countryName}</span>
+      <span>{countryNameText}</span>
+      <br />
       <span>{tradeFlowText} </span>
+      <br />
       <span>{tradeValueText}</span>
     </div>
   );

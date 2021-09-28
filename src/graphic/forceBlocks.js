@@ -105,9 +105,17 @@ export function ForceBlocks(props) {
       })
       .attr("fill", (d, i) => {
         const thisCountryName = countryNames[i];
-        if (origin.toLowerCase() === thisCountryName) {
+
+        const originForMatch = origin.toLowerCase();
+
+        if (originForMatch === "unitedkingdom") {
+          originForMatch = "unitedKingdom";
+        }
+
+        if (originForMatch === thisCountryName) {
           return "green";
         }
+
         return colorObj[thisCountryName];
       })
       .attr("class", "block")
@@ -115,6 +123,7 @@ export function ForceBlocks(props) {
       .on("click", function () {
         const thisId = this.id;
         const countryName = thisId.replace("Block", "");
+
         originChangeFromGraphic(countryName);
       })
       .on("mouseover", function () {
@@ -183,6 +192,7 @@ export function ForceBlocks(props) {
 
   function generateColorObj(tradeFlow, origin) {
     const tradePartnersFull = createTradeData(origin, tradeFlow);
+
     const colorObj = colorByCountry(tradePartnersFull);
     return colorObj;
   }
@@ -192,6 +202,8 @@ export function ForceBlocks(props) {
       tradeFlow === "export"
         ? findTradePartnersExport(origin)
         : findTradePartnersImport(origin);
+
+    console.log("origin from createTradeData", origin);
 
     return tradePartnersFull;
   }

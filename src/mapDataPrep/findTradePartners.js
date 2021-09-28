@@ -1,3 +1,4 @@
+import { filter } from "d3-array";
 import totalExportData from "../data/totalExportData.json";
 
 export function findTradePartnersExport(origin) {
@@ -5,7 +6,7 @@ export function findTradePartnersExport(origin) {
 
   let filterCriteria;
 
-  if (origin === "unitedKingdom") {
+  if (origin === "UnitedKingdom" || origin === "unitedKingdom") {
     filterCriteria = "unitedKingdom";
   } else {
     filterCriteria = origin.toLowerCase();
@@ -16,6 +17,8 @@ export function findTradePartnersExport(origin) {
   );
 
   fullTradeData = fullTradeData[0];
+
+  // console.log("findTradePartnersExport", fullTradeData);
 
   fullTradeData = Object.keys(fullTradeData)
     .filter((key) => key !== "european")
@@ -34,6 +37,8 @@ export function findTradePartnersExport(origin) {
 
   const fullTradeData_final = sortByValues(fullTradeData_numbers);
 
+  console.log("findTradePartnersExport", fullTradeData_final);
+
   return fullTradeData_final;
 }
 
@@ -41,7 +46,7 @@ export function findTradePartnersImport(origin) {
   let fullTradeData = {};
 
   let filterCriteria;
-  if (origin === "unitedKingdom") {
+  if (origin === "UnitedKingdom" || origin === "unitedKingdom") {
     filterCriteria = "unitedKingdom";
   } else {
     filterCriteria = origin.toLowerCase();
