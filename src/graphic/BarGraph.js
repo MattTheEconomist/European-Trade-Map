@@ -139,6 +139,44 @@ export function BarGraph(props) {
       .attr("fill", (d, i) => {
         return colorValues[i];
       });
+
+    const textData = ["Euros"];
+
+    for (let i = 0; i < 7; i++) {
+      const currentTradeValue = Object.values(tradePartnersFull)[i];
+
+      textData.push(formatTradeValue(currentTradeValue));
+    }
+
+    d3.selectAll(".dataTable").remove();
+
+    console.log(textData);
+
+    svg
+      .selectAll(".dataTable")
+      .data(textData)
+      .enter()
+      .append("text")
+      .attr("x", 360)
+      .attr("y", (d, i) => i * (barHeight + barMarginBetween) + 22)
+      .text((d) => d)
+      .attr("class", "dataTable");
+  }
+
+  function formatTradeValue(tradeValue) {
+    let formattedValue = tradeValue / 1000000000;
+    let trailingLetter;
+
+    if (formattedValue > 1) {
+      trailingLetter = "B";
+    } else {
+      formattedValue = tradeValue / 1000000;
+      trailingLetter = "M";
+    }
+
+    formattedValue = formattedValue.toFixed(1);
+
+    return `${formattedValue}${trailingLetter}`;
   }
 
   function createBars(barData) {
@@ -185,7 +223,7 @@ export function BarGraph(props) {
     <>
       <h2 id="barGraphTitle"></h2>
       <BarTitle origin={origin} tradeFlow={tradeFlow} />
-      <svg id="graphSvg" height={svgHeight}></svg>
+      <svg id="graphSvg" height={svgHeight} width={450}></svg>
     </>
   );
 }

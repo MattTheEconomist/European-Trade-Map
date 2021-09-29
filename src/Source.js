@@ -78,10 +78,12 @@ const Source = () => {
             originChangeFromGraphic={originChangeFromGraphic}
           />
         </div>
-        <EuroMap
-          origin={origin}
-          originChangeFromGraphic={originChangeFromGraphic}
-        />
+        <div id="mapContainer">
+          <EuroMap
+            origin={origin}
+            originChangeFromGraphic={originChangeFromGraphic}
+          />
+        </div>
       </div>
 
       <CountrySelect
