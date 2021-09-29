@@ -6,6 +6,20 @@ export function findTradePartnersExport(origin) {
 
   let filterCriteria;
 
+  if (origin === "") {
+    const firstExportRow = totalExportData[0];
+    const firstRowValues = Object.values(firstExportRow);
+    const firstRowKeys = Object.keys(firstExportRow);
+
+    let zeroObject = { Parnter: "austria" };
+
+    for (let i = 1; i < firstRowValues.length; i++) {
+      zeroObject[firstRowKeys[i]] = 0;
+    }
+
+    return zeroObject;
+  }
+
   if (origin === "UnitedKingdom" || origin === "unitedKingdom") {
     filterCriteria = "unitedKingdom";
   } else {

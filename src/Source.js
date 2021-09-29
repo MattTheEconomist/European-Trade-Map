@@ -14,7 +14,8 @@ import BarGraph from "./graphic/BarGraph";
 import ForceBlocks from "./graphic/forceBlocks";
 
 const Source = () => {
-  const [origin, setOrigin] = useState("Germany");
+  const [origin, setOrigin] = useState("");
+  // const [origin, setOrigin] = useState("Germany");
   const [tradeFlow, setTradeFlow] = useState("export");
 
   const svg = d3.select("#europeMap");
@@ -37,28 +38,6 @@ const Source = () => {
       drawArrowDirection(svg, origin, tradePartners, tradeFlow);
     }
   }, [origin, tradeFlow]);
-
-  useEffect(() => {
-    // clearArrowsAndCircles();
-
-    // d3.selectAll(".countryPath").attr("fill", "grey");
-
-    // const tradePartners =
-    //   tradeFlow === "export"
-    //     ? findTradePartnersExport(origin)
-    //     : findTradePartnersImport(origin);
-
-    // const colorObj = colorByCountry(tradePartners);
-
-    // console.log("colorObj onload", colorObj);
-    // colorObj[origin] = "green";
-
-    // paintCountries(colorObj, origin);
-
-    setTimeout(() => {
-      setOrigin("Italy");
-    }, 100);
-  }, []);
 
   function handleOriginChange(e) {
     const originSelected = e.target.value;

@@ -23,12 +23,12 @@ export function ForceBlocks(props) {
     reDrawBlocks(tradeFlow);
   }, [origin, tradeFlow]);
 
-  useEffect(() => {
-    createBlocks(tradeFlow);
-    setTooltipStyles({
-      visibilty: "hidden",
-    });
-  }, []);
+  // useEffect(() => {
+  //   createBlocks(tradeFlow);
+  //   setTooltipStyles({
+  //     visibilty: "hidden",
+  //   });
+  // }, []);
 
   function generateRow(idx) {
     let rowPx = 45;

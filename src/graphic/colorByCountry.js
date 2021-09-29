@@ -10,8 +10,6 @@ export function paintCountries(colorObj, origin) {
 function highlightSelectedCountry(origin) {
   let selectionCriteria = origin;
 
-  // console.log(selectionCriteria);
-
   if (
     selectionCriteria === "United Kingdom" ||
     selectionCriteria === "UnitedKingdom"
@@ -28,7 +26,6 @@ function highlightSelectedCountry(origin) {
 function transitionCountryColors(colorObj) {
   setTimeout(() => {
     const countries = Object.keys(colorObj);
-    console.log("countries", countries, colorObj);
 
     for (let i = 0; i < countries.length; i++) {
       let currentCountryName = countries[i];
@@ -59,6 +56,22 @@ export function colorByCountry(tradePartners) {
     .range([0, 100]);
 
   let countryColorObj = {};
+
+  // const sumOfVolumes = volumes.slice(1).reduce((a, b) => a + b, 0);
+
+  // const initialState = sumOfVolumes > 0 ? true : false;
+
+  // if (initialState) {
+  //   for (let i = 0; i < countries.length; i++) {
+  //     const currentColor = `hsla(186, 0%, 50%, 1)`;
+  //     const currentCountry = countries[i];
+  //     countryColorObj[currentCountry] = currentColor;
+
+  //     console.log("countryColorObj", countryColorObj);
+  //     return countryColorObj;
+  //   }
+  // }
+
   for (let i = 0; i < countries.length; i++) {
     const currentCountry = countries[i];
     const currenVolume = volumes[i];
@@ -69,8 +82,6 @@ export function colorByCountry(tradePartners) {
 
     countryColorObj[currentCountry] = currentColor;
   }
-
-  // console.log("countryColorObj", countryColorObj);
 
   return countryColorObj;
 }

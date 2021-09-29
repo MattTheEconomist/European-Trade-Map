@@ -51,7 +51,8 @@ const EuroMap = (props) => {
         } else {
           return countryName;
         }
-      });
+      })
+      .attr("fill", "hsl(186, 0%, 50%)");
 
     const countries = d3.selectAll(".countryPath");
 
