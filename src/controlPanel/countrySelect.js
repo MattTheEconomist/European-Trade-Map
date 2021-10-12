@@ -1,6 +1,5 @@
 import countryList from "../data/countryList";
-import * as d3 from "d3";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const CountrySelect = (props) => {
   const {

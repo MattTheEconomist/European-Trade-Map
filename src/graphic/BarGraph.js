@@ -150,8 +150,6 @@ export function BarGraph(props) {
 
     d3.selectAll(".dataTable").remove();
 
-    console.log(textData);
-
     svg
       .selectAll(".dataTable")
       .data(textData)

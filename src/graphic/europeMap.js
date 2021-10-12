@@ -3,11 +3,14 @@ import * as d3 from "d3";
 import { geoJsonUrl, europeProjection } from "../mapDataPrep/mapDrawFunctions";
 import drawCapitals from "./capitals";
 import colorByCountry, { paintCountries } from "./colorByCountry";
+import AlertBox from "./AlertBox";
 
 const EuroMap = (props) => {
   const [geoMap, setGeoMap] = useState({});
+  const [nonEUCountryName, setNonEUCountryName] = useState("");
 
-  const { originChangeFromGraphic, origin } = props;
+  const { originChangeFromGraphic, origin, toggleEUSelected, nonEUCountry } =
+    props;
 
   //   draw map functions
   useEffect(() => {
@@ -58,18 +61,21 @@ const EuroMap = (props) => {
 
     countries.on("click", function () {
       originChangeFromGraphic(this.id);
-      // console.log(this.id);
+      setNonEUCountryName(this.id);
     });
   }
 
   return (
-    <div id="mapContainer">
-      <svg
-        id="europeMap"
-        viewBox="0 -100 700 450"
-        // viewBox="0 0 100 100"
-      ></svg>
-    </div>
+    <>
+      <svg id="europeMap" viewBox="0 -100 700 450"></svg>
+
+      <AlertBox
+        orgin={origin}
+        toggleEUSelected={toggleEUSelected}
+        nonEUCountry={nonEUCountry}
+        nonEUCountryName={nonEUCountryName}
+      />
+    </>
   );
 };
 

@@ -12,11 +12,12 @@ import calculateArrowWidth from "./graphic/arrowWidths";
 import colorByCountry, { paintCountries } from "./graphic/colorByCountry";
 import BarGraph from "./graphic/BarGraph";
 import ForceBlocks from "./graphic/forceBlocks";
+import countryList from "./data/countryList";
 
 const Source = () => {
   const [origin, setOrigin] = useState("");
-  // const [origin, setOrigin] = useState("Germany");
   const [tradeFlow, setTradeFlow] = useState("export");
+  const [nonEUCountry, setNonEUCountry] = useState(false);
 
   const svg = d3.select("#europeMap");
 
@@ -49,8 +50,17 @@ const Source = () => {
     }
   }
 
+  function toggleEUSelected() {
+    setNonEUCountry(false);
+  }
+
   function originChangeFromGraphic(countryName) {
-    setOrigin(countryName);
+    if (countryList.includes(countryName)) {
+      setOrigin(countryName);
+      setNonEUCountry(false);
+    } else {
+      setNonEUCountry(true);
+    }
   }
 
   function tradeFlowToImport() {
@@ -82,6 +92,8 @@ const Source = () => {
           <EuroMap
             origin={origin}
             originChangeFromGraphic={originChangeFromGraphic}
+            toggleEUSelected={toggleEUSelected}
+            nonEUCountry={nonEUCountry}
           />
         </div>
       </div>

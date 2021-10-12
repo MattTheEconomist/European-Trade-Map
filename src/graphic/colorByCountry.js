@@ -57,21 +57,6 @@ export function colorByCountry(tradePartners) {
 
   let countryColorObj = {};
 
-  // const sumOfVolumes = volumes.slice(1).reduce((a, b) => a + b, 0);
-
-  // const initialState = sumOfVolumes > 0 ? true : false;
-
-  // if (initialState) {
-  //   for (let i = 0; i < countries.length; i++) {
-  //     const currentColor = `hsla(186, 0%, 50%, 1)`;
-  //     const currentCountry = countries[i];
-  //     countryColorObj[currentCountry] = currentColor;
-
-  //     console.log("countryColorObj", countryColorObj);
-  //     return countryColorObj;
-  //   }
-  // }
-
   for (let i = 0; i < countries.length; i++) {
     const currentCountry = countries[i];
     const currenVolume = volumes[i];
