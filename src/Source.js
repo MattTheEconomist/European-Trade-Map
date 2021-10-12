@@ -13,6 +13,7 @@ import colorByCountry, { paintCountries } from "./graphic/colorByCountry";
 import BarGraph from "./graphic/BarGraph";
 import ForceBlocks from "./graphic/forceBlocks";
 import countryList from "./data/countryList";
+import Title from "./graphic/Title";
 
 const Source = () => {
   const [origin, setOrigin] = useState("");
@@ -55,7 +56,11 @@ const Source = () => {
   }
 
   function originChangeFromGraphic(countryName) {
-    if (countryList.includes(countryName)) {
+    console.log(countryName);
+
+    if (countryName === "unitedKingdom") {
+      setOrigin(countryName);
+    } else if (countryList.includes(countryName)) {
       setOrigin(countryName);
       setNonEUCountry(false);
     } else {
@@ -77,10 +82,17 @@ const Source = () => {
 
   return (
     <>
-      <h3>Dynamic Title Here</h3>
+      <Title origin={origin} tradeFlow={tradeFlow} />
 
       <div id="mapAndGraphContainer">
         <div id="graphContainer">
+          <CountrySelect
+            handleOriginChange={handleOriginChange}
+            origin={origin}
+            tradeFlow={tradeFlow}
+            tradeFlowToExport={tradeFlowToExport}
+            tradeFlowToImport={tradeFlowToImport}
+          />
           <BarGraph origin={origin} tradeFlow={tradeFlow} />
           <ForceBlocks
             origin={origin}
@@ -88,7 +100,13 @@ const Source = () => {
             originChangeFromGraphic={originChangeFromGraphic}
           />
         </div>
-        <div id="mapContainer">
+        <div
+          id="mapContainer"
+          style={{
+            maxWidth: "1200px",
+            minWidth: "1200px",
+          }}
+        >
           <EuroMap
             origin={origin}
             originChangeFromGraphic={originChangeFromGraphic}
@@ -97,14 +115,6 @@ const Source = () => {
           />
         </div>
       </div>
-
-      <CountrySelect
-        handleOriginChange={handleOriginChange}
-        origin={origin}
-        tradeFlow={tradeFlow}
-        tradeFlowToExport={tradeFlowToExport}
-        tradeFlowToImport={tradeFlowToImport}
-      />
     </>
   );
 };

@@ -219,7 +219,7 @@ export function ForceBlocks(props) {
   }
 
   return (
-    <>
+    <div id="forceBlocksContainer" style={{ maxHeight: "200px" }}>
       <h3 id="forceBlocksTitle">
         {origin}'s share of all{" "}
         {tradeFlow.charAt(0).toUpperCase() + tradeFlow.slice(1)}s
@@ -231,24 +231,8 @@ export function ForceBlocks(props) {
         blockHovered={blockHovered}
         tradeFlow={tradeFlow}
       />
-    </>
+    </div>
   );
 }
-
-// const useMousePosition = () => {
-//   const [mousePosition, setMousePosition] = useState({ x: null, y: null });
-
-//   const updateMousePosition = (ev) => {
-//     setMousePosition({ x: ev.clientX, y: ev.clientY });
-//   };
-
-//   useEffect(() => {
-//     window.addEventListener("mousemove", updateMousePosition);
-
-//     return () => window.removeEventListener("mousemove", updateMousePosition);
-//   }, []);
-
-//   return mousePosition;
-// };
 
 export default ForceBlocks;

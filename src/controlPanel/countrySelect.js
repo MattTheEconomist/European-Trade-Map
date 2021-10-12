@@ -22,7 +22,8 @@ const CountrySelect = (props) => {
   const originSelect = document.getElementById("originSelect");
 
   return (
-    <div id="countrySelectContainer">
+    <div id="countrySelectContainer" style={{ minWidth: 500 }}>
+      <h3> Change Country Selected </h3>
       <select id="originSelect" onChange={handleOriginChange} value={origin}>
         {optionsHtml}
       </select>

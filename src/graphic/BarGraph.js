@@ -112,7 +112,9 @@ export function BarGraph(props) {
       .text((d) => d)
       .attr("x", 10)
       .attr("y", (d, i) => i * (barHeight + barMarginBetween) + marginTop + 10)
-      .attr("class", "barLabels");
+      .attr("class", "barLabels")
+      .attr("stroke", "white")
+      .attr("font-weight", 15);
   }
 
   function reDrawBars(barData, tradePartnersFull) {
@@ -158,7 +160,9 @@ export function BarGraph(props) {
       .attr("x", 360)
       .attr("y", (d, i) => i * (barHeight + barMarginBetween) + 22)
       .text((d) => d)
-      .attr("class", "dataTable");
+      .attr("class", "dataTable")
+      .attr("stroke", "white")
+      .attr("font-weight", 15);
   }
 
   function formatTradeValue(tradeValue) {

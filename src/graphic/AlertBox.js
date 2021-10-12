@@ -8,7 +8,7 @@ export const AlertBox = (props) => {
     left: "30em",
     backgroundColor: "#d12e6a",
     fontSize: "1.1em",
-    width: "275px",
+    width: "300px",
     height: "100px",
     position: "relative",
     boxShadow: ".2em .4em black",

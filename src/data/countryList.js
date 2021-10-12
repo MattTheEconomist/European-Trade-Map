@@ -26,6 +26,7 @@ const countryList = [
   "Croatia",
   "Ireland",
   "unitedKingdom",
+  "United Kingdom",
 ];
 
 export default countryList;
