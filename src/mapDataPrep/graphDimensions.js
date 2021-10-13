@@ -11,6 +11,7 @@ const barGraphDims = {
   barMarginBetween: 3,
   marginTop: 30,
   svgHeight: 180,
+  euroTextXStart: 425,
 };
 
 export { mapWidth, mapHeight, arrowHeadLength, barGraphDims };

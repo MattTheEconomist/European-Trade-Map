@@ -123,7 +123,13 @@ export function ForceBlocks(props) {
       .attr("id", (d, i) => `${countryNames[i]}Block`)
       .on("click", function () {
         const thisId = this.id;
-        const countryName = thisId.replace("Block", "");
+        let countryName = thisId.replace("Block", "");
+
+        if (countryName === "UnitedKingdom") {
+          countryName = "unitedKingdom";
+        }
+
+        console.log("fc blocks", countryName);
 
         originChangeFromGraphic(countryName);
       })

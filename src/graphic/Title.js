@@ -12,9 +12,9 @@ export const Title = (props) => {
     let flowText;
 
     if (tradeFlow === "export") {
-      flowText = "Exports to";
+      flowText = "Exports from";
     } else {
-      flowText = "Imports from";
+      flowText = "Imports to";
     }
 
     return `${flowText} ${origin}`;
@@ -25,12 +25,8 @@ export const Title = (props) => {
     console.log(origin, tradeFlow);
   }, [tradeFlow, origin]);
 
-  //   useEffect(() => {
-  //     setTitleText("hello");
-  //   }, []);
-
   return (
-    <div>
+    <div id="titleContainer">
       <h1>{titleText}</h1>
     </div>
   );

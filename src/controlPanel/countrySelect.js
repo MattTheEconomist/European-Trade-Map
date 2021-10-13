@@ -57,8 +57,8 @@ const TradeFlowButton = (props) => {
 
   const btnText =
     tradeFlow === btnTypeLower
-      ? `currently showing ${btnType}s`
-      : `show ${btnType}s instead`;
+      ? `Currently Showing ${btnType}s`
+      : `Show ${btnType}s Instead`;
 
   return (
     <button id={btnId} className="tradeFlowBtn" onClick={clickFunction}>

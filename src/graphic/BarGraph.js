@@ -10,10 +10,6 @@ import { colorByCountry } from "./colorByCountry";
 
 export function BarGraph(props) {
   const { origin, tradeFlow } = props;
-  // const [tradePartnersFull, setTradePartnersFull] = useState(
-  //   // createTradeData(origin, tradeFlow)
-  //   {}
-  // );
 
   const {
     height,
@@ -23,6 +19,7 @@ export function BarGraph(props) {
     marginTop,
     barStartLeft,
     svgHeight,
+    euroTextXStart,
   } = barGraphDims;
 
   useEffect(() => {
@@ -157,7 +154,7 @@ export function BarGraph(props) {
       .data(textData)
       .enter()
       .append("text")
-      .attr("x", 360)
+      .attr("x", euroTextXStart)
       .attr("y", (d, i) => i * (barHeight + barMarginBetween) + 22)
       .text((d) => d)
       .attr("class", "dataTable")
@@ -222,11 +219,16 @@ export function BarGraph(props) {
   }
 
   return (
-    <>
+    <div style={{ width: "550px" }}>
       <h2 id="barGraphTitle"></h2>
       <BarTitle origin={origin} tradeFlow={tradeFlow} />
-      <svg id="graphSvg" height={svgHeight} width={450}></svg>
-    </>
+      <svg
+        id="graphSvg"
+        height={svgHeight}
+        // width={550}
+        // width="550px"
+      ></svg>
+    </div>
   );
 }
 

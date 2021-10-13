@@ -1,7 +1,8 @@
 :root {
+  --darkerBackground: #1c1c1c;
   --darkBackground: #2b2b2b;
   --lightForeGround: #5e5e5e;
-  --lightestGrey: #a6a6a6;
+  --lightestGrey: #c4c2c2;
 }
 
 body {
@@ -27,9 +28,8 @@ body {
 
 #countrySelectContainer {
   background-color: var(--lightForeGround);
-  height: 100px;
+  height: 150px;
   padding-top: 1rem;
-  min-width: 600;
 }
 
 #europeMap {
@@ -38,6 +38,7 @@ body {
 #mapAndGraphContainer {
   display: flex;
   height: 500px;
+  width: 510px;
 }
 
 #graphContainer {
@@ -49,8 +50,7 @@ body {
 }
 
 #graphSvg {
-  margin-left: -15%;
-  width: 410px;
+  width: 510px;
   margin-bottom: 10%;
 }
 
@@ -73,7 +73,7 @@ body {
 }
 #forceTooltip {
   position: relative;
-  background-color: #896ddb;
+  background-color: #6c4bce;
   /* padding: 5px; */
   padding-left: 5px;
   padding-right: 5px;
@@ -96,12 +96,42 @@ body {
 }
 
 .tradeFlowBtn {
+  width: 150px;
+  height: 40px;
+  font-size: 14px;
+  text-align: center;
+  margin-left: 5px;
+  border-radius: 7px;
+  /* line-height: 100px; */
 }
 
 #activeBtn {
-  background-color: #ed0c57;
+  background: linear-gradient(45deg, #ff004c, #ee3f73 90%);
 }
 
 #passiveBtn {
   background-color: var(--lightestGrey);
+}
+
+/* .tradeFlowBtn :hover #passiveBtn { */
+/* .tradeFlowBtn :hover  { */
+#countrySelectContainer .tradeFlowBtn :hover {
+  /* background-color: var(--lightForeGround); */
+  background-color: black;
+}
+
+#originSelect {
+  width: 170px;
+  height: 25px;
+  font-size: 14px;
+  position: relative;
+  top: 8px;
+}
+
+#titleContainer {
+  background-color: var(--darkerBackground);
+  height: 75px;
+  margin-top: -20px;
+  padding-top: 10px;
+  margin-bottom: 5px;
 }

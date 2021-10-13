@@ -55,7 +55,7 @@ export const ForceBlocksTooltip = (props) => {
   const tradeFlowText =
     tradeFlow.charAt(0).toUpperCase() + tradeFlow.slice(1) + "s";
 
-  const yOffset = 55;
+  const yOffset = 220;
   const xOffset = 100;
 
   const yPoz = toolY + yOffset;
@@ -77,7 +77,7 @@ export const ForceBlocksTooltip = (props) => {
   const styles = {
     top: yPoz,
     left: xPoz,
-    width: "100px",
+    width: "125px",
     visibility: newViz,
     position: "absolute",
   };
