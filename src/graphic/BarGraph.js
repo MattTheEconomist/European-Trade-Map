@@ -26,10 +26,10 @@ export function BarGraph(props) {
     const tradePartnersFull = createTradeData(origin, tradeFlow);
     const tradePartnersTop = createAbbrevData(tradePartnersFull);
     const barData = createPortionBarData(tradePartnersTop);
-    drawCountryNames(tradePartnersFull);
+    drawCountryNames(tradePartnersFull, origin);
     drawAxis();
     createBars(barData);
-    reDrawBars(barData, tradePartnersFull);
+    reDrawBars(barData, tradePartnersFull, origin);
   }, []);
 
   useEffect(() => {
@@ -39,8 +39,8 @@ export function BarGraph(props) {
     const barData = createPortionBarData(tradePartnersTop);
 
     drawAxis();
-    drawCountryNames(tradePartnersFull);
-    reDrawBars(barData, tradePartnersFull);
+    drawCountryNames(tradePartnersFull, origin);
+    reDrawBars(barData, tradePartnersFull, origin);
   }, [origin, tradeFlow]);
 
   // global stuffs
@@ -83,7 +83,7 @@ export function BarGraph(props) {
     return tradePartnersFull;
   }
 
-  function drawCountryNames(tradePartnersFull) {
+  function drawCountryNames(tradePartnersFull, origin) {
     d3.selectAll(".barLabels").remove();
 
     const allCountries = Object.keys(tradePartnersFull);
@@ -106,7 +106,13 @@ export function BarGraph(props) {
       .data(topSevenCountries)
       .enter()
       .append("text")
-      .text((d) => d)
+      .text((d) => {
+        if (origin) {
+          return d;
+        } else {
+          return "";
+        }
+      })
       .attr("x", 10)
       .attr("y", (d, i) => i * (barHeight + barMarginBetween) + marginTop + 10)
       .attr("class", "barLabels")
@@ -114,7 +120,7 @@ export function BarGraph(props) {
       .attr("font-weight", 15);
   }
 
-  function reDrawBars(barData, tradePartnersFull) {
+  function reDrawBars(barData, tradePartnersFull, origin) {
     const colorObj = colorByCountry(tradePartnersFull);
 
     const colorValues = Object.values(colorObj);
@@ -156,7 +162,13 @@ export function BarGraph(props) {
       .append("text")
       .attr("x", euroTextXStart)
       .attr("y", (d, i) => i * (barHeight + barMarginBetween) + 22)
-      .text((d) => d)
+      .text((d) => {
+        if (origin) {
+          return d;
+        } else {
+          return "";
+        }
+      })
       .attr("class", "dataTable")
       .attr("stroke", "white")
       .attr("font-weight", 15);

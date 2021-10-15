@@ -23,13 +23,6 @@ export function ForceBlocks(props) {
     reDrawBlocks(tradeFlow);
   }, [origin, tradeFlow]);
 
-  // useEffect(() => {
-  //   createBlocks(tradeFlow);
-  //   setTooltipStyles({
-  //     visibilty: "hidden",
-  //   });
-  // }, []);
-
   function generateRow(idx) {
     let rowPx = 45;
     let totalRows = 5;
@@ -224,12 +217,17 @@ export function ForceBlocks(props) {
     return tradePartnersFull;
   }
 
+  let titleText = "Export Share";
+
+  if (origin) {
+    titleText = ` ${origin}'s share of all EU ${
+      tradeFlow.charAt(0).toUpperCase() + tradeFlow.slice(1)
+    }s`;
+  }
+
   return (
     <div id="forceBlocksContainer" style={{ maxHeight: "200px" }}>
-      <h3 id="forceBlocksTitle">
-        {origin}'s share of all{" "}
-        {tradeFlow.charAt(0).toUpperCase() + tradeFlow.slice(1)}s
-      </h3>
+      <h3 id="forceBlocksTitle">{titleText}</h3>
       <svg id="blockSvg" height={400}></svg>
       <ForceBlocksTooltip
         isHovering={isHovering}

@@ -5,7 +5,6 @@ const CountrySelect = (props) => {
   const {
     handleOriginChange,
     origin,
-    dest,
     tradeFlow,
     tradeFlowToExport,
     tradeFlowToImport,
@@ -21,10 +20,19 @@ const CountrySelect = (props) => {
 
   const originSelect = document.getElementById("originSelect");
 
+  const initialLoadState = origin ? false : true;
+
+  const highlightClass = initialLoadState ? "highlightSelect" : "none";
+
   return (
     <div id="countrySelectContainer" style={{ minWidth: 500 }}>
       <h3> Change Country Selected </h3>
-      <select id="originSelect" onChange={handleOriginChange} value={origin}>
+      <select
+        id="originSelect"
+        className={highlightClass}
+        onChange={handleOriginChange}
+        value={origin}
+      >
         {optionsHtml}
       </select>
 
@@ -33,6 +41,7 @@ const CountrySelect = (props) => {
         tradeFlow={tradeFlow}
         tradeFlowToExport={tradeFlowToExport}
         tradeFlowToImport={tradeFlowToImport}
+        initialLoadState={initialLoadState}
       />
 
       <TradeFlowButton
@@ -40,20 +49,32 @@ const CountrySelect = (props) => {
         tradeFlow={tradeFlow}
         tradeFlowToExport={tradeFlowToExport}
         tradeFlowToImport={tradeFlowToImport}
+        initialLoadState={initialLoadState}
       />
+      {/* <div className={highlightClass}></div> */}
     </div>
   );
 };
 
 const TradeFlowButton = (props) => {
-  const { btnType, tradeFlow, tradeFlowToExport, tradeFlowToImport } = props;
+  const {
+    btnType,
+    tradeFlow,
+    tradeFlowToExport,
+    tradeFlowToImport,
+    initialLoadState,
+  } = props;
 
   const btnTypeLower = btnType.toLowerCase();
 
   const clickFunction =
     btnType === "Import" ? tradeFlowToImport : tradeFlowToExport;
 
-  const btnId = tradeFlow === btnTypeLower ? "activeBtn" : "passiveBtn";
+  let btnId = tradeFlow === btnTypeLower ? "activeBtn" : "passiveBtn";
+
+  if (initialLoadState) {
+    btnId = "passiveBtn";
+  }
 
   const btnText =
     tradeFlow === btnTypeLower
@@ -61,7 +82,12 @@ const TradeFlowButton = (props) => {
       : `Show ${btnType}s Instead`;
 
   return (
-    <button id={btnId} className="tradeFlowBtn" onClick={clickFunction}>
+    <button
+      id={btnId}
+      className="tradeFlowBtn"
+      disabled={initialLoadState}
+      onClick={clickFunction}
+    >
       {btnText}
     </button>
   );

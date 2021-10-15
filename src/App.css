@@ -3,6 +3,7 @@
   --darkBackground: #2b2b2b;
   --lightForeGround: #5e5e5e;
   --lightestGrey: #c4c2c2;
+  --brightRed: #ff004c;
 }
 
 body {
@@ -62,10 +63,7 @@ body {
 
 #forceBlocksContainer {
   border: 5px solid var(--lightForeGround);
-  /* max-height: "300px"; */
   height: "300px";
-
-  /* min-height: "300px"; */
 }
 
 #forceBlocksTitle {
@@ -102,30 +100,47 @@ body {
   text-align: center;
   margin-left: 5px;
   border-radius: 7px;
-  /* line-height: 100px; */
+}
+
+.btnInitialState {
 }
 
 #activeBtn {
-  background: linear-gradient(45deg, #ff004c, #ee3f73 90%);
+  background: linear-gradient(45deg, var(--brightRed), #ee3f73 90%);
 }
 
 #passiveBtn {
   background-color: var(--lightestGrey);
 }
 
-/* .tradeFlowBtn :hover #passiveBtn { */
-/* .tradeFlowBtn :hover  { */
 #countrySelectContainer .tradeFlowBtn :hover {
-  /* background-color: var(--lightForeGround); */
   background-color: black;
 }
 
 #originSelect {
   width: 170px;
-  height: 25px;
+  height: 35px;
   font-size: 14px;
   position: relative;
   top: 8px;
+  /* background: 4px var(--brightRed); */
+}
+
+.highlightSelect {
+  /* width: 177px;
+  height: 2px; */
+  border-top: 5px solid var(--brightRed);
+  border-bottom: 5px solid var(--brightRed);
+  /* margin-left: 30px;
+  margin-top: -5px; */
+  animation: blinkBorder 1s alternate infinite;
+}
+
+@keyframes blinkBorder {
+  100% {
+    border-top: 5px solid var(--lightForeGround);
+    border-bottom: 5px solid var(--lightForeGround);
+  }
 }
 
 #titleContainer {
