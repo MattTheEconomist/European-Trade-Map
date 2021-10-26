@@ -1,8 +1,6 @@
 import { europeProjection } from "../mapDataPrep/mapDrawFunctions";
 import * as d3 from "d3";
 import capitals from "../data/capitals.json";
-import centroids from "../data/centroids.json";
-import countryList from "../data/countryList";
 import arrowHeadLength from "../mapDataPrep/graphDimensions";
 import { drawCircle } from "./circle";
 
@@ -37,12 +35,9 @@ export function drawArrowDirection(svg, origin, tradePartners, tradeFlow) {
 export function drawArrowParts(svg, origin, dest, lineWidth) {
   const lineCoords = createPathCoordinates(origin, dest);
 
-  // testing stuff
 
   const testCoords = createPathCoordinates("Ireland", "France");
-  // const testCoords = createPathCoordinates("Czechia", "France");
 
-  // end test
 
   const arrowTopCoords = topArrowStartingCoordinates(origin, dest);
 
